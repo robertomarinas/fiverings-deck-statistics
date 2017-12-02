@@ -14,13 +14,7 @@ class ImportBar extends Component {
 	}
 
 	render() {
-		return (
-			<div>
-				<input onChange={this.onInputChange} value={this.state.perma} />
-				<br />
-				Value of the input: {this.state.perma}			
-			</div>
-		)
+		return <input onChange={this.onInputChange} value={this.state.perma} />
 	}
 }
 

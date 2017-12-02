@@ -2,6 +2,48 @@
 	padding: 30px 0;
 }
 
-.centralize {
+.center {
 	text-align: center;
 }
+
+.deck-list {
+	/*height: 300px;*/
+}
+
+.deck-list li {
+	/*display: inline-block;*/
+	font-size: 0.8em;
+}
+
+.deck-list li label {
+	margin: 0;
+}
+
+.curve-container {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.curve-diagram {
+	height: 200px;
+	max-height: 200px;
+	width: 300px;
+	margin: 20px auto;
+	overflow: hidden;
+	background-color: #2F972F;
+}
+
+.curve-diagram .col-xs-2 {
+	position: relative;
+	height: 100%;
+	border: 1px solid;
+	/*padding: 0 40px;*/
+	background-color: #2F972F;
+}
+/*D5A458*/
+.cost-1 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 20px; }
+.cost-2 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 50px; }
+.cost-3 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 45px; }
+.cost-4 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 60px; }
+.cost-5 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 90px; }
+

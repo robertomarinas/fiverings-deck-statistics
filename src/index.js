@@ -3,13 +3,20 @@
     which is the webpack entry file
 */
 
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxPromise from 'redux-promise';
 
-import ImportBar from './components/import_bar';
+// Components
+import ImportBar from './containers/import_bar';
 import CardList from './components/card_list';
 import CurveDiagram from './components/curve_diagram';
+// Containers
+import DeckList from './containers/deck_list';
+// Reducers
+import reducers from './reducers';
 
 export default class App extends Component {
 
@@ -20,7 +27,6 @@ export default class App extends Component {
 			deck: [],
 			status: '' 
 		}
-		// this.state = { status: '' }
 	}
 
 	permaSearch = (perma) => {
@@ -50,14 +56,21 @@ export default class App extends Component {
 			<div>
 				<div className="center">
 					<h1>L5R Deck Statistics</h1>
-					<ImportBar onPermaChange={perma => this.permaSearch(perma)} />
-					<CurveDiagram />
+					<ImportBar />
 				</div>
 				<CardList curDeck={this.state.deck} />
-				{this.state.status}
+				<DeckList />
 			</div>
 		)
 	}
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+
+ReactDOM.render(
+	<Provider store={createStoreWithMiddleware(reducers)}>
+		<App />
+	</Provider>
+	, 
+	document.getElementById('root')
+);

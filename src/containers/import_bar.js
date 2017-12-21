@@ -18,7 +18,6 @@ class ImportBar extends Component {
 
 	onInputChange(event) {
 		this.setState({ perma: event.target.value });
-		
 	}
 
 	onFormSubmit(event) {
@@ -35,6 +34,7 @@ class ImportBar extends Component {
 		// });
 
 		this.props.fetchDeck(this.state.perma);
+		// comment uncomment this
 		this.setState({ perma: '' });
 	}
 
@@ -45,16 +45,15 @@ class ImportBar extends Component {
 
 	render() {
 		return (
-			<form onSubmit={this.onFormSubmit} className="input-group">
-				
+			<form onSubmit={this.onFormSubmit} className="import-form input-group">
 				<input 
 				className="form-control" 
 				onChange={this.onInputChange} 
-				placeholder="enter permalink here.." 
+				placeholder="Enter permalink ID (e.g. d7c244ae-d362-11e7-86fc-8e1ccf16fca4)" 
 				value={this.state.perma} />
 				
 				<span className="input-group-btn">
-					<button type="submit" className="btn btn-secondary">Submit</button>
+					<button type="submit" className="btn btn-secondary">Fetch Deck</button>
 				</span>
 			</form>
 

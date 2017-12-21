@@ -1,30 +1,24 @@
 import React from 'react';
+import { Sparklines, SparklinesLine, SparklinesBars, SparklinesReferenceLine } from 'react-sparklines';
 
-const CurveDiagram = () => {
+const CurveDiagram = (props) => {
 
-	return(
+	// if(props.selected == null) {
+	// 	return null
+	// }
 
-		<div className="curve-container">
-			<div className="curve-diagram">
-				<div className="col-xs-1"></div>
-				<div className="col-xs-2"><span className="cost-1"></span></div>
-				<div className="col-xs-2"><span className="cost-2"></span></div>
-				<div className="col-xs-2"><span className="cost-3"></span></div>
-				<div className="col-xs-2"><span className="cost-4"></span></div>
-				<div className="col-xs-2"><span className="cost-5"></span></div>
-				<div className="col-xs-1"></div>
-			</div>
-			<div className="row">
-				<div className="col-xs-1"></div>
-				<div className="col-xs-2">1</div>
-				<div className="col-xs-2">2</div>
-				<div className="col-xs-2">3</div>
-				<div className="col-xs-2">4</div>
-				<div className="col-xs-2">5</div>
-				<div className="col-xs-1"></div>
-			</div>
-			
+	// console.log(props.data);
+
+	return (
+
+		<div className="curve-diagram">
+			<Sparklines data={props.data}>
+				<SparklinesBars style={{ fill: "#41c3f9", fillOpacity: ".25" }} />
+				<SparklinesLine style={{ stroke: "#41c3f9", fill: "none" }} />
+				<SparklinesReferenceLine type="avg" />
+			</Sparklines>
 		</div>
+	
 	)
 
 }

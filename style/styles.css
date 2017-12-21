@@ -1,9 +1,42 @@
+body {
+	/*padding: 30px 0;*/
+}
+
+h1 {
+	color: #fff!important;
+}
+
+.table {
+	border: 1px solid #eceeef;
+}
+
 #container {
 	padding: 30px 0;
 }
 
+.page-header-content {
+/*	width: 1024px;
+	margin: 0 auto;*/
+}
+
 .center {
 	text-align: center;
+}
+.btn.btn-default {
+	background: none;
+	padding: 0;
+	color: blue;
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+.btn.btn-default:hover {
+	/*background-color: #ff0;*/
+	text-decoration: underline;
+}
+
+.import-form {
+	margin-top: 20px;
 }
 
 .deck-list {
@@ -25,12 +58,13 @@
 }
 
 .curve-diagram {
-	height: 200px;
+	/*height: 200px;
 	max-height: 200px;
 	width: 300px;
 	margin: 20px auto;
 	overflow: hidden;
-	background-color: #2F972F;
+	background-color: #2F972F;*/
+	margin-top: 30px;
 }
 
 .curve-diagram .col-xs-2 {
@@ -46,4 +80,32 @@
 .cost-3 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 45px; }
 .cost-4 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 60px; }
 .cost-5 { transition: all 0.5s ease; position: absolute; left: 50%; margin-left: -25%; bottom: 0; background-color:#E5E500; width: 50%; height: 90px; }
+
+.prob-calc-form .input-group {
+	margin-bottom: 20px;
+}
+
+/*.prob-calc-form .input-group > .input-group-addon, */
+.prob-calc-form .input-group > .input-group-btn .btn {
+	width: 100%;
+	/*width: 100px;
+	max-width: 100px;*/
+}
+.prob-calc-form .input-group .input-group-addon.percent {
+	background-color: transparent;
+	/*border-color: transparent;*/
+	border-spacing: 5px;
+	border-style: dashed;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+.btn-calc-res {
+	border-radius: 4px!important;
+}
+
+/*Imported Classes*/
+.page-header {
+	background-color: #000;
+	margin-top: 0!important;
+}
 

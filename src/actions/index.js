@@ -12,9 +12,9 @@ export const CARDS_LIST = 'CARDS_LIST';
 export function fetchDeck(perma) {
 
 	const url = `${STRAIN_URL}${perma}`;
+	
 	// Returns a Promise as Payload
-	const request = axios.get(url).catch(error => {
-	});
+	const request = axios.get(url);
 
 	return {
 		type: DECK_PERMA,
@@ -37,7 +37,18 @@ export function fetchFateCost(cardID) {
 
 export function fetchCardsList() {
 
-	const request = axios.get(CARDS_URL).catch(error => {});
+	const request = axios.get(CARDS_URL)
+	.then(res => {
+		console.log('fetched cards');
+		return res;
+	})
+	.catch(error => {
+		// console.log(error);
+		// return error;
+		return {
+			error: `Failed to fetch cards. Please make sure that you're connected to the internet`
+		}
+	});
 
 	// console.log(request);
 

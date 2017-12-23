@@ -2,13 +2,18 @@ import React from 'react';
 
 const ItemPanelDeckList = (props) => {
 
+	// console.log(props.decks.list);
+
+	if(props.decks.list.length === 0) {
+		return null;
+	}
+
 	const panelType = "Deck List:";
-	const listGroupItem = props.decks.map((deck, index) => {
+	const listGroupItem = props.decks.list.map((deck, index) => {
 		const ifActive = props.selected == deck.record.id ? 'active' : '';
 		const itemClass = `list-group-item ${ifActive}`
 		return <button data-key={deck.record.id} data-index={index} className={itemClass} key={deck.record.id} onClick={props.onViewDeck}>{deck.record.head.name}</button>
 	});
-
 
 	return (
 

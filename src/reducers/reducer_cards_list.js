@@ -5,7 +5,21 @@ export default function(state = {}, action) {
 	switch (action.type) {
 		case CARDS_LIST:
 
-		return action.payload.data;
+		// if(action.payload.error) {
+		// 	return action.payload;
+		// }
+		// console.log(action.payload.data);
+
+		// if(action)
+
+		if(!action.payload.data) {
+			return action.payload;
+		} 
+		// else {
+		// 	return action.payload.data;	
+		// }
+
+		return action.payload.data;	
 	}
 
 	return state;

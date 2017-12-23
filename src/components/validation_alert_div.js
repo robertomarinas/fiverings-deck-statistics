@@ -15,6 +15,7 @@ const ValidationAlertDiv = (props) => {
 
 		case 'success':
 			addAlertClass = 'alert-success';
+		break;
 	}
 
 	const wholeAlertClass = `invalid-feedback alert ${addAlertClass}`;

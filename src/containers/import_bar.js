@@ -22,41 +22,31 @@ class ImportBar extends Component {
 
 	onFormSubmit(event) {
 		event.preventDefault();
-		// console.log(this.props.decks);
-		// console.log(this.state.perma);
-		// Check if the deck is already imported
-		// this.props.decks.forEach(function(deck) {
-		// 	console.log(deck.record.id);
-		// 	if(deck.record.id == this.state.perma) {
-		// 		this.setState({ exists: true });
-		// 		console.log('already exists');
-		// 	}
-		// });
-
 		this.props.fetchDeck(this.state.perma);
-		// comment uncomment this
 		this.setState({ perma: '' });
 	}
 
-	onCheckPerma() {
-		// console.log(1);
-		// return 'test';
-	}
-
 	render() {
-		return (
-			<form onSubmit={this.onFormSubmit} className="import-form input-group">
-				<input 
-				className="form-control" 
-				onChange={this.onInputChange} 
-				placeholder="Enter permalink ID (e.g. d7c244ae-d362-11e7-86fc-8e1ccf16fca4)" 
-				value={this.state.perma} />
-				
-				<span className="input-group-btn">
-					<button type="submit" className="btn btn-secondary">Fetch Deck</button>
-				</span>
-			</form>
 
+		return (
+			<div>
+				<div className="" style={{color: '#F00', fontStyle: 'italic'}}>{this.props.decks.status}</div>
+				<form onSubmit={this.onFormSubmit} className="import-form input-group" style={{}}>
+
+					<input 
+					className="form-control" 
+					onChange={this.onInputChange} 
+					placeholder="Enter permalink ID (e.g. d7c244ae-d362-11e7-86fc-8e1ccf16fca4)" 
+					value={this.state.perma} 
+					disabled={Object.keys(this.props.cards).length === 0 ? 'disabled' : this.props.cards.error ? 'disabled' : ''}
+					/>
+					
+					<span className="input-group-btn">
+						<button type="submit" className="btn btn-secondary">Fetch Deck</button>
+					</span>
+				</form>
+
+			</div>
 		) 
 
 	}
@@ -68,7 +58,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
 	return {
-		decks: state.decks
+		decks: state.decks,
+		cards: state.cardsList
 	}
 }
 

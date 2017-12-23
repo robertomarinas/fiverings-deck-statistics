@@ -21,7 +21,7 @@ const ItemPanel = (props) => {
 
 		case props.type == 'deckList':
 			panelType = "Deck List:";
-			listGroupItem = props.decks.map((deck, index) => {
+			listGroupItem = props.decks.list.map((deck, index) => {
 				const ifActive = props.selected == deck.record.id ? 'active' : '';
 				const itemClass = `list-group-item ${ifActive}`
 				return <button data-key={deck.record.id} data-index={index} className={itemClass} key={deck.record.id} onClick={props.onViewDeck}>{deck.record.head.name}</button>
@@ -31,7 +31,7 @@ const ItemPanel = (props) => {
 
 		case props.type == 'clan':
 			panelType = 'Clan:';
-			clanInfo = props.decks.map((deck, index) => {
+			clanInfo = props.decks.list.map((deck, index) => {
 				return (
 					<div key={index}>
 						<button className="list-group-item">{deck.record.head.primary_clan}</button>

@@ -12,43 +12,40 @@ export default function(state = {
 	switch (action.type) {
 		case DECK_PERMA:
 
-		// console.log('t');
-		// if(!action.payload) {
-			// console.log(action.payload.request.status);
-		// };
-		if(action.payload.request.status === 404) {
+		if(action.payload.message === "Network Error" && action.error) {
 			flag = 1;
 			return Object.assign({}, state, {
-				status: 'Invalid Permalink'
+				status: "Network Error! Please check if you have connection and if ID is valid."
 			});
-		} 
-
-		
-		state.list.forEach(function(deck) {
-			if(deck.record.id === action.payload.data.record.id) {
-				flag = 1;
-			}
-		});
-		
-		if(!flag) {
-			// OR state.concat([ action.payload.data ]);
-			// return [ action.payload.data, ...state ];
-			// state.list.concat[action.payload.data];
-
+		} else if(action.payload.request.status === 404) {
+			flag = 1;
 			return Object.assign({}, state, {
-				list: state.list.concat([action.payload.data]),
-				status: ''
+				status: 'Invalid Permalink ID!'
 			});
+		} else if(action.payload.request.status === 500) {
+			flag = 1;
+			return Object.assign({}, state, {
+				status: 'Server Error!'
+			});
+		} else if(action.payload.request.status === 200) {
 			
-
-			// return state;
-
-		} else {
-			// console.log('deck already imported');
-			// state.status = 'deck already imported';
-			return Object.assign({}, state, {
-				status: 'Deck already imported'
+			state.list.forEach(function(deck) {
+				if(deck.record.id === action.payload.data.record.id) {
+					flag = 1;
+				}
 			});
+
+			if(!flag) {
+				return Object.assign({}, state, {
+					list: state.list.concat([action.payload.data]),
+					status: ''
+				});
+
+			} else {
+				return Object.assign({}, state, {
+					status: 'Deck already imported!'
+				});
+			}
 		}		
 	}
 

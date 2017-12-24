@@ -5,8 +5,8 @@ const CARDS_URL  = `https://api.fiveringsdb.com/cards`;
 const CARD_URL 	 = `https://api.fiveringsdb.com/cards/`;
 
 export const DECK_PERMA = 'DECK_PERMA';
-export const CARD_ID = 'CARD_ID';
 export const CARDS_LIST = 'CARDS_LIST';
+export const CARD_ID = 'CARD_ID';
 
 // Action Creator
 export function fetchDeck(perma) {
@@ -22,38 +22,24 @@ export function fetchDeck(perma) {
 	};
 }
 
-export function fetchFateCost(cardID) {
-
-	const url = `${CARD_URL}${cardID}`;
-
-	const request = axios.get(url).catch(error => {
-	});
-
-	return {
-		type: CARD_ID,
-		payload: request
-	}
-}
-
 export function fetchCardsList() {
 
-	const request = axios.get(CARDS_URL)
-	.then(res => {
-		console.log('fetched cards');
-		return res;
-	})
-	.catch(error => {
-		// console.log(error);
-		// return error;
-		return {
-			error: `Failed to fetch cards. Please make sure that you're connected to the internet`
-		}
-	});
-
-	// console.log(request);
+	const request = axios.get(CARDS_URL);
 
 	return {
 		type: CARDS_LIST,
+		payload: request
+	}
+
+}
+
+export function fetchCardInfo(cardID) {
+
+	const url = `${CARD_URL}${cardID}`;
+	const request = axios.get(url);
+
+	return {
+		type: CARD_ID,
 		payload: request
 	}
 

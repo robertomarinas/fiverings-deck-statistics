@@ -1,19 +1,19 @@
 import React from 'react';
 
 const ItemPanelDeckList = (props) => {
-
-	// console.log(props.decks.list);
+	
+	const panelType = "Deck List:";
+	let listGroupItem;
 
 	if(props.decks.list.length === 0) {
-		return null;
+		listGroupItem = <div className="alert alert-info">Your <strong>decks</strong> will be displayed here. <strong>Click on it</strong> after you successfully imported your <strong>deck</strong>.</div>;
+	} else {
+		listGroupItem = props.decks.list.map((deck, index) => {
+			const ifActive = props.selected == deck.record.id ? 'active' : '';
+			const itemClass = `list-group-item ${ifActive}`
+			return <button data-key={deck.record.id} data-index={index} className={itemClass} key={deck.record.id} onClick={props.onViewDeck}>{deck.record.head.name}</button>
+		});
 	}
-
-	const panelType = "Deck List:";
-	const listGroupItem = props.decks.list.map((deck, index) => {
-		const ifActive = props.selected == deck.record.id ? 'active' : '';
-		const itemClass = `list-group-item ${ifActive}`
-		return <button data-key={deck.record.id} data-index={index} className={itemClass} key={deck.record.id} onClick={props.onViewDeck}>{deck.record.head.name}</button>
-	});
 
 	return (
 

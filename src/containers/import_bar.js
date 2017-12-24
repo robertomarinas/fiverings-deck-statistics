@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { fetchDeck } from '../actions/index';
 
 class ImportBar extends Component {
 
@@ -17,7 +14,8 @@ class ImportBar extends Component {
 	}
 
 	onInputChange(event) {
-		this.setState({ perma: event.target.value });
+		const id = event.target.value.trim();
+		this.setState({ perma: id });
 	}
 
 	onFormSubmit(event) {
@@ -30,19 +28,19 @@ class ImportBar extends Component {
 
 		return (
 			<div>
-				<div className="" style={{color: '#F00', fontStyle: 'italic'}}>{this.props.decks.status}</div>
+				<div className="" style={{color: '#F00'}}>{this.props.decks.status}</div>
 				<form onSubmit={this.onFormSubmit} className="import-form input-group" style={{}}>
 
 					<input 
 					className="form-control" 
 					onChange={this.onInputChange} 
-					placeholder="Enter permalink ID (e.g. d7c244ae-d362-11e7-86fc-8e1ccf16fca4)" 
+					placeholder="d7c244ae-d362-11e7-86fc-8e1ccf16fca4" 
 					value={this.state.perma} 
-					disabled={Object.keys(this.props.cards).length === 0 ? 'disabled' : this.props.cards.error ? 'disabled' : ''}
+					disabled={this.props.cards.status === 200 ? '' : 'disabled'}
 					/>
 					
 					<span className="input-group-btn">
-						<button type="submit" className="btn btn-secondary">Fetch Deck</button>
+						<button type="submit" className="btn btn-secondary"><strong>Import Deck</strong></button>
 					</span>
 				</form>
 
@@ -52,15 +50,6 @@ class ImportBar extends Component {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchDeck }, dispatch);
-}
 
-function mapStateToProps(state) {
-	return {
-		decks: state.decks,
-		cards: state.cardsList
-	}
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImportBar);
+export default ImportBar;

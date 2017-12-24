@@ -15,31 +15,34 @@ const ItemPanelCurve = (props) => {
 	});
 
 	return (
-		<div className="item">
-			<div className="panel panel-default">
-			  <div className="panel-heading">
-			  	<h3 className="panel-title">Curve Chart (Fate cost)</h3>
-			  </div>
-			  <div className="panel-body">
-			    <CurveDiagram data={curve} selected={props.id} />
-			    <table className="table table-responsive">
-			    	<thead>
-			    		<tr>
-			    			<th>0</th>
-				    		<th>1</th>
-				    		<th>2</th>
-				    		<th>3</th>
-				    		<th>4</th>
-				    		<th>5+</th>
-			    		</tr>
-			    	</thead>
-			    	<tbody>
-			    		<tr>{curveTD}</tr>
-			    	</tbody>
-			    </table>
-			  </div>
-			</div>	    		
-    	</div>
+		<div className="col-sm-6 col-md-12">
+			<div className="item">
+				<div className="panel panel-default">
+				  <div className="panel-heading">
+				  	<h3 className="panel-title">Curve Chart (Fate cost)</h3>
+				  </div>
+				  <div className="panel-body">
+				    <CurveDiagram data={curve} selected={props.id} />
+				    <table className="table table-responsive">
+				    	<thead>
+				    		<tr>
+				    			<th>0</th>
+					    		<th>1</th>
+					    		<th>2</th>
+					    		<th>3</th>
+					    		<th>4</th>
+					    		<th>5+</th>
+				    		</tr>
+				    	</thead>
+				    	<tbody>
+				    		<tr>{curveTD}</tr>
+				    	</tbody>
+				    </table>
+				  </div>
+				</div>	    		
+	    	</div>
+		</div>
+		
 	)
 
 }

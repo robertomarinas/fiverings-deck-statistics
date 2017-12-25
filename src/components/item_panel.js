@@ -8,19 +8,9 @@ const ItemPanel = (props) => {
 
 	let listGroupItem = [];
 	let panelType = null;
-	// let clanInfo = [];
+	let flag = false;
 
 	switch (true) {
-
-		// case props.type == 'deckList':
-		// 	panelType = "Deck List:";
-		// 	listGroupItem = props.decks.list.map((deck, index) => {
-		// 		const ifActive = props.selected == deck.record.id ? 'active' : '';
-		// 		const itemClass = `list-group-item ${ifActive}`
-		// 		return <button data-key={deck.record.id} data-index={index} className={itemClass} key={deck.record.id} onClick={props.onViewDeck}>{deck.record.head.name}</button>
-		// 	});
-
-		// break;
 
 		case props.type == 'clan':
 			panelType = 'Clan:';
@@ -60,31 +50,76 @@ const ItemPanel = (props) => {
 
 		case props.type != null && props.type2 != null:
 
-			panelType = props.type2;
-
+			let typeCount = 0;
+			let typePercent;
+			let classes;
+			let icon;
 			listGroupItem = props.deck.map((deck, index) => {
 				if(props.cardList[deck.id].side == props.type && props.cardList[deck.id].type == props.type2) {
-					return <button key={index} data-key={deck.id} onClick={props.onViewItemModal} className="list-group-item">{props.cardList[deck.id].name} <span style={{fontStyle: 'italic'}}>(<strong>{deck.count}</strong>)</span></button>
-				}
+					typeCount += deck.count;
+					typePercent = ((typeCount / props.count) * 100).toFixed(1);
+
+					panelType = `${props.type2} (${typeCount}) (${typePercent}%)`;
+
+					// Get icons
+					switch (props.cardList[deck.id].clan) {
+						case 'neutral':
+							icon = 'icon-clan-neutral fg-dark-neutral';
+						break;
+						case 'lion':
+							icon = 'icon-clan-lion fg-dark-lion';
+						break;
+						case 'crane':
+							icon = 'icon-clan-crane fg-dark-crane';
+						break;
+						case 'unicorn':
+							icon = 'icon-clan-unicorn fg-dark-unicorn';
+						break;
+						case 'scorpion':
+							icon = 'icon-clan-scorpion fg-dark-scorpion';
+						break;
+						case 'dragon':
+							icon = 'icon-clan-dragon fg-dark-dragon';
+						break;
+						case 'phoenix':
+							icon = 'icon-clan-phoenix fg-dark-phoenix';
+						break;
+						case 'crab':
+							icon = 'icon-clan-crab fg-dark-crab';
+						break;
+					}
+					classes = `${icon} list-group-item`;
+
+					return <button id={deck.id} key={index} data-key={deck.id} onClick={props.onViewItemModal} className={classes}>{props.cardList[deck.id].name} ({deck.count})</button>
+				} 
 			});
+
+			if(typeCount === 0) {
+				flag = true;
+			}
 
 		break;
 	}
 	
-	return(
-		<div className="item">
-    		<div className="panel panel-default">
-			  <div className="panel-heading">
-			  	<h3 className="panel-title">{panelType}</h3>
-			  </div>
-			  <div className="panel-body">
-			    <div className="list-group">
-			    	{listGroupItem}
-			    </div>
-			  </div>
-			</div>
-    	</div>
-	)
+	if(!flag) {
+		return(
+			<div className="item">
+	    		<div className="panel panel-default">
+				  <div className="panel-heading">
+				  	<h3 className="panel-title">{panelType}</h3>
+				  </div>
+				  <div className="panel-body">
+				    <div className="list-group">
+				    	{listGroupItem}
+				    </div>
+				  </div>
+				</div>
+	    	</div>
+		)
+	} else {
+		return null;
+	}
+	
 	
 }
 

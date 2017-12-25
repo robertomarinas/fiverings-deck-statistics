@@ -21,6 +21,7 @@ const customStyles = {
     backgroundColor   : 'rgba(0, 0, 0, 0.75)'
   },
   content : {
+  	// width				  : '200px',
     top                   : '15%',
     left                  : '10%',
     right                 : '10%',
@@ -84,16 +85,17 @@ class App extends Component {
 	}
 
 	closeModal() {
-		this.setState({modalIsOpen: false});
+		this.setState({ selectedCard: null });
+		this.setState({ modalIsOpen: false });
 	}
 
 	viewItemModal(e) {
+		const cardId = e.target.dataset.key;
 
-		const cardID = e.target.dataset.key;
-
-		this.setState({
-			selectedCard: cardID
-		}, this.openModal());
+		if(cardId) {
+			this.setState({ selectedCard: cardId });
+			this.openModal();
+		}
 	}
 
 	onViewDeck(e){
@@ -116,16 +118,16 @@ class App extends Component {
 		
 		const cardLibrary = this.props.cards.list;
 
-		// console.log(cardLibrary);
-
 		cardLibrary.records.forEach((value) => {
 			fateCost[ value.id ] = { 
+				clan: value.clan,
 				cost: value.cost, 
 				type: value.type, 
 				side: value.side,
 				name: value.name,
-				text: value.text,
-				img : value.pack_cards[0] ? value.pack_cards[0].image_url : '' 
+				traits: value.traits,
+				text: value.text_canonical,
+				image : value.pack_cards[0] ? value.pack_cards[0].image_url : '' 
 			}
 		});
 
@@ -250,10 +252,10 @@ class App extends Component {
 		          contentLabel="Example Modal"
 		        >
 
-		          <h2 ref={subtitle => this.subtitle = subtitle}></h2>
-		          <button onClick={this.closeModal}>close</button>
+		          <span ref={subtitle => this.subtitle = subtitle}></span>
+		          <button className="btn btn-primary" onClick={this.closeModal}>close</button>
 		          
-		          <ModalContent cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} />
+		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} />
 		          
 		        </Modal>
 				<div className="page-header">

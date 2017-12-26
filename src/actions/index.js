@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const STRAIN_URL = `https://api.fiveringsdb.com/strains/`;
+const DECK_URL = `https://api.fiveringsdb.com/decks/`;
 const CARDS_URL  = `https://api.fiveringsdb.com/cards`;
 const CARD_URL 	 = `https://api.fiveringsdb.com/cards/`;
 
@@ -9,9 +10,18 @@ export const CARDS_LIST = 'CARDS_LIST';
 export const CARD_ID = 'CARD_ID';
 
 // Action Creator
-export function fetchDeck(perma) {
+export function fetchDeck(id, type) {
+	let urlType;
+	switch (type) {
+		case 'strains':
+			urlType = STRAIN_URL;
+		break;
 
-	const url = `${STRAIN_URL}${perma}`;
+		case 'decks':
+			urlType = DECK_URL;
+		break;
+	}
+	const url = `${urlType}${id}`;
 	
 	// Returns a Promise as Payload
 	const request = axios.get(url);
@@ -33,15 +43,15 @@ export function fetchCardsList() {
 
 }
 
-export function fetchCardInfo(cardID) {
+// export function fetchCardInfo(cardID) {
 
-	const url = `${CARD_URL}${cardID}`;
-	const request = axios.get(url);
+// 	const url = `${CARD_URL}${cardID}`;
+// 	const request = axios.get(url);
 
-	return {
-		type: CARD_ID,
-		payload: request
-	}
+// 	return {
+// 		type: CARD_ID,
+// 		payload: request
+// 	}
 
-}
+// }
 

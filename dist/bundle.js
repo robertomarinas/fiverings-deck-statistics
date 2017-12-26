@@ -955,7 +955,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.CARD_ID = exports.CARDS_LIST = exports.DECK_PERMA = undefined;
 exports.fetchDeck = fetchDeck;
 exports.fetchCardsList = fetchCardsList;
-exports.fetchCardInfo = fetchCardInfo;
 
 var _axios = __webpack_require__(93);
 
@@ -964,6 +963,7 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var STRAIN_URL = 'https://api.fiveringsdb.com/strains/';
+var DECK_URL = 'https://api.fiveringsdb.com/decks/';
 var CARDS_URL = 'https://api.fiveringsdb.com/cards';
 var CARD_URL = 'https://api.fiveringsdb.com/cards/';
 
@@ -972,9 +972,18 @@ var CARDS_LIST = exports.CARDS_LIST = 'CARDS_LIST';
 var CARD_ID = exports.CARD_ID = 'CARD_ID';
 
 // Action Creator
-function fetchDeck(perma) {
+function fetchDeck(id, type) {
+	var urlType = void 0;
+	switch (type) {
+		case 'strains':
+			urlType = STRAIN_URL;
+			break;
 
-	var url = '' + STRAIN_URL + perma;
+		case 'decks':
+			urlType = DECK_URL;
+			break;
+	}
+	var url = '' + urlType + id;
 
 	// Returns a Promise as Payload
 	var request = _axios2.default.get(url);
@@ -995,16 +1004,17 @@ function fetchCardsList() {
 	};
 }
 
-function fetchCardInfo(cardID) {
+// export function fetchCardInfo(cardID) {
 
-	var url = '' + CARD_URL + cardID;
-	var request = _axios2.default.get(url);
+// 	const url = `${CARD_URL}${cardID}`;
+// 	const request = axios.get(url);
 
-	return {
-		type: CARD_ID,
-		payload: request
-	};
-}
+// 	return {
+// 		type: CARD_ID,
+// 		payload: request
+// 	}
+
+// }
 
 /***/ }),
 /* 11 */
@@ -25272,6 +25282,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = function () {
 	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 
@@ -25283,6 +25295,7 @@ exports.default = function () {
 
 
 	var flag = null;
+	var urlType = void 0;
 
 	switch (action.type) {
 		case _index.DECK_PERMA:
@@ -25290,12 +25303,12 @@ exports.default = function () {
 			if (action.payload.message === "Network Error" && action.error) {
 				flag = 1;
 				return Object.assign({}, state, {
-					status: "Network Error! Please check if you have connection and if ID is valid."
+					status: "Network Error! Please check if you have connection and if the URL is valid."
 				});
 			} else if (action.payload.request.status === 404) {
 				flag = 1;
 				return Object.assign({}, state, {
-					status: 'Invalid Permalink ID!'
+					status: 'Invalid Deck URL!'
 				});
 			} else if (action.payload.request.status === 500) {
 				flag = 1;
@@ -25311,8 +25324,11 @@ exports.default = function () {
 				});
 
 				if (!flag) {
+					var responseURL = action.payload.request.responseURL;
+					responseURL = responseURL.split('/');
+
 					return Object.assign({}, state, {
-						list: state.list.concat([action.payload.data]),
+						list: state.list.concat([_extends({ urlType: responseURL[3] }, action.payload.data)]),
 						status: ''
 					});
 				} else {
@@ -26294,15 +26310,21 @@ exports.default = function () {
 						_react2.default.createElement(
 							'strong',
 							null,
-							'Cards successfuly Fetched!'
+							'Cards Successfully Fetched!'
 						),
 						' Please enter the ',
 						_react2.default.createElement(
 							'strong',
 							null,
-							'Permalink ID'
+							'FULL Permalink URL'
 						),
-						' of your deck from ',
+						' of your deck or ',
+						_react2.default.createElement(
+							'strong',
+							null,
+							'ANY Deck URL'
+						),
+						' from ',
 						_react2.default.createElement(
 							'strong',
 							null,
@@ -26403,7 +26425,13 @@ var _deck_list = __webpack_require__(127);
 
 var _deck_list2 = _interopRequireDefault(_deck_list);
 
+var _donate_btn = __webpack_require__(136);
+
+var _donate_btn2 = _interopRequireDefault(_donate_btn);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -26453,12 +26481,22 @@ var App = function (_Component) {
 			currentDynastyCount: 0,
 			currentConflictCount: 0,
 			curve: {
-				zero: 0,
-				one: 0,
-				two: 0,
-				three: 0,
-				four: 0,
-				five: 0
+				dynasty: {
+					zero: 0,
+					one: 0,
+					two: 0,
+					three: 0,
+					four: 0,
+					five: 0
+				},
+				conflict: {
+					zero: 0,
+					one: 0,
+					two: 0,
+					three: 0,
+					four: 0,
+					five: 0
+				}
 			},
 			noCost: 0
 		};
@@ -26520,8 +26558,12 @@ var App = function (_Component) {
 			// Clean States
 			this.setState({ currentDynastyCount: null });
 			this.setState({ currentConflictCount: null });
+			this.setState({ noCost: null });
 			this.setState({
-				curve: { zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0 }
+				curve: {
+					dynasty: { zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0 },
+					conflict: { zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0 }
+				}
 			});
 
 			// set State to the selected ID
@@ -26547,7 +26589,13 @@ var App = function (_Component) {
 
 			this.setState({ optimizedCardsList: fateCost });
 
-			var selectedDeck = Object.entries(this.props.decks.list[index].record.head.cards);
+			var selectedDeck = void 0;
+			// Check URL type (decks or strains)
+			if (this.props.decks.list[index].urlType === 'strains') {
+				selectedDeck = Object.entries(this.props.decks.list[index].record.head.cards);
+			} else if (this.props.decks.list[index].urlType === 'decks') {
+				selectedDeck = Object.entries(this.props.decks.list[index].record.cards);
+			}
 
 			selectedDeck.map(function (value) {
 				newDeckArr = newDeckArr.concat({ id: value[0], count: value[1] });
@@ -26564,14 +26612,21 @@ var App = function (_Component) {
 		key: 'onGetCost',
 		value: function onGetCost(cardId, cardCount, cardsList) {
 
+			var side = void 0;
+			if (cardsList[cardId].side === 'dynasty') {
+				side = 'dynasty';
+			} else if (cardsList[cardId].side === 'conflict') {
+				side = 'conflict';
+			}
+
 			switch (cardsList[cardId].cost) {
 
 				case 0:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								zero: prevState.curve.zero + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								zero: prevState.curve[side].zero + cardCount
+							})))
 						};
 					});
 					break;
@@ -26579,9 +26634,9 @@ var App = function (_Component) {
 				case 1:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								one: prevState.curve.one + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								one: prevState.curve[side].one + cardCount
+							})))
 						};
 					});
 					break;
@@ -26589,9 +26644,9 @@ var App = function (_Component) {
 				case 2:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								two: prevState.curve.two + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								two: prevState.curve[side].two + cardCount
+							})))
 						};
 					});
 					break;
@@ -26599,9 +26654,9 @@ var App = function (_Component) {
 				case 3:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								three: prevState.curve.three + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								three: prevState.curve[side].three + cardCount
+							})))
 						};
 					});
 					break;
@@ -26609,9 +26664,9 @@ var App = function (_Component) {
 				case 4:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								four: prevState.curve.four + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								four: prevState.curve[side].four + cardCount
+							})))
 						};
 					});
 					break;
@@ -26621,9 +26676,9 @@ var App = function (_Component) {
 				case 7:
 					this.setState(function (prevState) {
 						return {
-							curve: _extends({}, prevState.curve, {
-								five: prevState.curve.five + cardCount
-							})
+							curve: _extends({}, prevState.curve, _defineProperty({}, side, _extends({}, prevState.curve[side], {
+								five: prevState.curve[side].five + cardCount
+							})))
 						};
 					});
 					break;
@@ -26634,7 +26689,7 @@ var App = function (_Component) {
 							noCost: prevState.noCost + cardCount
 						};
 					});
-
+					break;
 			}
 		}
 	}, {
@@ -26672,9 +26727,10 @@ var App = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
+			console.log(this.state.noCost);
 			return _react2.default.createElement(
 				'div',
-				null,
+				{ className: 'react-content' },
 				_react2.default.createElement(
 					_reactModal2.default,
 					{
@@ -26696,34 +26752,88 @@ var App = function (_Component) {
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'page-header' },
+					{ className: 'main-content' },
 					_react2.default.createElement(
-						'div',
-						{ className: 'container page-header-content' },
+						'header',
+						null,
 						_react2.default.createElement(
 							'div',
-							{ className: 'row' },
+							{ className: 'page-header' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-md-5' },
+								{ className: 'container page-header-content' },
 								_react2.default.createElement(
-									'h1',
-									null,
-									'L5R: TCG Deck Statistics'
+									'div',
+									{ className: 'row' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'col-md-5' },
+										_react2.default.createElement(
+											'h1',
+											null,
+											'L5R: TCG Deck Statistics'
+										)
+									),
+									_react2.default.createElement(
+										'div',
+										{ className: 'col-md-7' },
+										_react2.default.createElement(_import_bar2.default, { decks: this.props.decks, cards: this.props.cards, fetchDeck: this.props.fetchDeck })
+									)
 								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'col-md-7' },
-								_react2.default.createElement(_import_bar2.default, { decks: this.props.decks, cards: this.props.cards, fetchDeck: this.props.fetchDeck })
 							)
 						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'container' },
+						_react2.default.createElement(_deck_list2.default, { decks: this.props.decks, cards: this.props.cards, selectedID: this.state.selectedID, optimizedDeckList: this.state.optimizedDeckList, optimizedCardsList: this.state.optimizedCardsList, curve: this.state.curve, currentDynastyCount: this.state.currentDynastyCount, currentConflictCount: this.state.currentConflictCount, onViewItemModal: this.viewItemModal, onViewDeck: this.onViewDeck, onGetCost: this.onGetCost, onGetDeckCount: this.onGetDeckCount, onGetAllData: this.onGetAllData })
 					)
 				),
 				_react2.default.createElement(
-					'div',
-					{ className: 'container' },
-					_react2.default.createElement(_deck_list2.default, { decks: this.props.decks, cards: this.props.cards, selectedID: this.state.selectedID, optimizedDeckList: this.state.optimizedDeckList, optimizedCardsList: this.state.optimizedCardsList, curve: this.state.curve, currentDynastyCount: this.state.currentDynastyCount, currentConflictCount: this.state.currentConflictCount, onViewItemModal: this.viewItemModal, onViewDeck: this.onViewDeck, onGetCost: this.onGetCost, onGetDeckCount: this.onGetDeckCount, onGetAllData: this.onGetAllData })
+					'footer',
+					null,
+					'Under development by ',
+					_react2.default.createElement(
+						'a',
+						{ href: 'https://twitter.com/BobChu', target: '_blank' },
+						'@bobchu'
+					),
+					'. API from ',
+					_react2.default.createElement(
+						'a',
+						{ href: 'https://alsciende.github.io/fiveringsdb-api/', target: '_blank' },
+						'alsciende.github.io/fiveringsdb-api'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'footer-small' },
+						_react2.default.createElement(
+							'p',
+							null,
+							'This project is not in any way affiliated or supported by fiveringsdb or Fantasy Flight Games.'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'The source material on this app is copyrighted by Fantasy Flight Games.'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'Legend of the Five Rings is a trademark of Fantasy Flight Games.'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'paypal-container' },
+							_react2.default.createElement(
+								'span',
+								null,
+								'You can support me by clicking'
+							),
+							' ',
+							_react2.default.createElement(_donate_btn2.default, null)
+						)
+					)
 				)
 			);
 		}
@@ -26738,8 +26848,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 	return {
 		decks: state.decks,
-		cards: state.cardsList,
-		cardInfo: state.cardInfo
+		cards: state.cardsList
+		// cardInfo: state.cardInfo
 	};
 }
 
@@ -27786,6 +27896,7 @@ var ImportBar = function (_Component) {
 
 		_this.state = {
 			perma: '',
+			// type: '',
 			exists: false
 		};
 		_this.onInputChange = _this.onInputChange.bind(_this);
@@ -27797,13 +27908,25 @@ var ImportBar = function (_Component) {
 		key: 'onInputChange',
 		value: function onInputChange(event) {
 			var id = event.target.value.trim();
+
 			this.setState({ perma: id });
 		}
 	}, {
 		key: 'onFormSubmit',
 		value: function onFormSubmit(event) {
 			event.preventDefault();
-			this.props.fetchDeck(this.state.perma);
+			var id = void 0;
+			var type = void 0;
+			var perma = this.state.perma;
+			var segments = perma.split('/');
+
+			if (segments.length === 6) {
+				if (segments[4].length === 36) {
+					id = segments[4].toString();
+					type = segments[3].toString();
+				}
+			}
+			this.props.fetchDeck(id, type);
 			this.setState({ perma: '' });
 		}
 	}, {
@@ -27824,7 +27947,7 @@ var ImportBar = function (_Component) {
 					_react2.default.createElement('input', {
 						className: 'form-control',
 						onChange: this.onInputChange,
-						placeholder: 'd7c244ae-d362-11e7-86fc-8e1ccf16fca4',
+						placeholder: '',
 						value: this.state.perma,
 						disabled: this.props.cards.status === 200 ? '' : 'disabled'
 					}),
@@ -27833,7 +27956,7 @@ var ImportBar = function (_Component) {
 						{ className: 'input-group-btn' },
 						_react2.default.createElement(
 							'button',
-							{ type: 'submit', className: 'btn btn-secondary' },
+							{ type: 'submit', className: 'btn btn-default' },
 							_react2.default.createElement(
 								'strong',
 								null,
@@ -28228,12 +28351,12 @@ var DeckList = function (_Component) {
 			if (copies > deckCount) {
 				flag = true;
 				this.setState({
-					ifCopies: 'Copies/Type cannot be greater than deck size.'
+					ifCopies: 'Cards cannot be greater than deck size.'
 				});
 			} else if (copies > 45) {
 				flag = true;
 				this.setState({
-					ifCopies: 'Copies/Type cannot exceed the max deck size of 45.'
+					ifCopies: 'Cards cannot exceed the max deck size of 45.'
 				});
 			}
 			if (draws > deckCount) {
@@ -28306,7 +28429,8 @@ var DeckList = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
-						_react2.default.createElement(_item_panel_curve2.default, { curve: this.props.curve, id: this.props.selectedID }),
+						_react2.default.createElement(_item_panel_curve2.default, { curve: this.props.curve.dynasty, side: 'dynasty', id: this.props.selectedID }),
+						_react2.default.createElement(_item_panel_curve2.default, { curve: this.props.curve.conflict, side: 'conflict', id: this.props.selectedID }),
 						_react2.default.createElement(_item_panel_calculator2.default, { deck: this.props.optimizedDeckList, onHandleSubmit: this.handleSubmit, onHandleChange: this.handleChange, ifEmptyFields: this.state.ifEmptyFields, copies: this.state.copies, ifCopies: this.state.ifCopies, numDraws: this.state.numDraws, ifDraws: this.state.ifDraws, deckCount: this.state.deckCount, ifDeckCount: this.state.ifDeckCount, calcRes: this.state.calcRes })
 					)
 				)
@@ -28491,32 +28615,40 @@ var ItemPanel = function ItemPanel(props) {
 	var listGroupItem = [];
 	var panelType = null;
 	var flag = false;
+	var deckObj = void 0;
 
 	switch (true) {
 
 		case props.type == 'clan':
 			panelType = 'Clan:';
+
 			var clanInfo = props.decks.list.map(function (deck, index) {
+				if (deck.urlType === 'strains') {
+					deckObj = deck.record.head;
+				} else if (deck.urlType === 'decks') {
+					deckObj = deck.record;
+				}
+
 				if (deck.record.id === props.selected) {
 					return _react2.default.createElement(
 						'div',
 						{ key: index },
 						_react2.default.createElement(
 							'button',
-							{ className: 'list-group-item' },
-							deck.record.head.primary_clan
+							{ className: 'list-group-item', disabled: true },
+							deckObj.primary_clan
 						),
 						_react2.default.createElement(
 							'button',
-							{ className: 'list-group-item' },
-							deck.record.head.format
+							{ className: 'list-group-item', disabled: true },
+							deckObj.format
 						)
 					);
 				}
 			});
 
 			listGroupItem = props.deck.map(function (deck, index) {
-				if (props.cardList[deck.id].type == props.type2) {
+				if (props.cardList[deck.id].type == props.type2 || props.cardList[deck.id].type == 'role') {
 					return _react2.default.createElement(
 						'button',
 						{ key: index, 'data-key': deck.id, onClick: props.onViewItemModal, className: 'list-group-item' },
@@ -28554,35 +28686,35 @@ var ItemPanel = function ItemPanel(props) {
 			listGroupItem = props.deck.map(function (deck, index) {
 				if (props.cardList[deck.id].side == props.type && props.cardList[deck.id].type == props.type2) {
 					typeCount += deck.count;
-					typePercent = (typeCount / props.count * 100).toFixed(1);
+					typePercent = (typeCount / props.count * 100).toFixed(2);
 
 					panelType = props.type2 + ' (' + typeCount + ') (' + typePercent + '%)';
 
 					// Get icons
 					switch (props.cardList[deck.id].clan) {
 						case 'neutral':
-							icon = 'icon-clan-neutral fg-dark-neutral';
+							icon = 'icon-clan-neutral';
 							break;
 						case 'lion':
-							icon = 'icon-clan-lion fg-dark-lion';
+							icon = 'icon-clan-lion';
 							break;
 						case 'crane':
-							icon = 'icon-clan-crane fg-dark-crane';
+							icon = 'icon-clan-crane';
 							break;
 						case 'unicorn':
-							icon = 'icon-clan-unicorn fg-dark-unicorn';
+							icon = 'icon-clan-unicorn';
 							break;
 						case 'scorpion':
-							icon = 'icon-clan-scorpion fg-dark-scorpion';
+							icon = 'icon-clan-scorpion';
 							break;
 						case 'dragon':
-							icon = 'icon-clan-dragon fg-dark-dragon';
+							icon = 'icon-clan-dragon';
 							break;
 						case 'phoenix':
-							icon = 'icon-clan-phoenix fg-dark-phoenix';
+							icon = 'icon-clan-phoenix';
 							break;
 						case 'crab':
-							icon = 'icon-clan-crab fg-dark-crab';
+							icon = 'icon-clan-crab';
 							break;
 					}
 					classes = icon + ' list-group-item';
@@ -28660,16 +28792,16 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 
 	var panelType = "Deck List:";
 	var listGroupItem = void 0;
+	var deckObj = void 0;
 
 	if (props.decks.list.length === 0) {
 		listGroupItem = _react2.default.createElement(
 			"div",
 			{ className: "alert alert-info" },
-			"Your ",
 			_react2.default.createElement(
 				"strong",
 				null,
-				"decks"
+				"Decks"
 			),
 			" will be displayed here. ",
 			_react2.default.createElement(
@@ -28677,7 +28809,7 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 				null,
 				"Click on it"
 			),
-			" after you successfully imported your ",
+			" after you successfully imported a ",
 			_react2.default.createElement(
 				"strong",
 				null,
@@ -28687,12 +28819,18 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 		);
 	} else {
 		listGroupItem = props.decks.list.map(function (deck, index) {
+			if (deck.urlType === 'strains') {
+				deckObj = deck.record.head;
+			} else if (deck.urlType === 'decks') {
+				deckObj = deck.record;
+			}
+
 			var ifActive = props.selected == deck.record.id ? 'active' : '';
 			var itemClass = "list-group-item " + ifActive;
 			return _react2.default.createElement(
 				"button",
 				{ "data-key": deck.record.id, "data-index": index, className: itemClass, key: deck.record.id, onClick: props.onViewDeck },
-				deck.record.head.name
+				deckObj.name
 			);
 		});
 	}
@@ -28714,7 +28852,7 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 			),
 			_react2.default.createElement(
 				"div",
-				{ className: "panel-body" },
+				{ className: "panel-body", style: { maxHeight: 400, overflow: 'auto', overflowX: 'hidden' } },
 				_react2.default.createElement(
 					"div",
 					{ className: "list-group" },
@@ -28782,7 +28920,9 @@ var ItemPanelCurve = function ItemPanelCurve(props) {
 					_react2.default.createElement(
 						'h3',
 						{ className: 'panel-title' },
-						'Curve Chart (Fate cost)'
+						'Fate Cost (',
+						props.side,
+						')'
 					)
 				),
 				_react2.default.createElement(
@@ -28902,7 +29042,7 @@ var ItemPanelCalculator = function ItemPanelCalculator(props) {
 							_react2.default.createElement(
 								'span',
 								{ className: 'input-group-addon', id: 'basic-addon1' },
-								'# of Copies/Type:'
+								'# of Cards:'
 							),
 							_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'copies', onChange: props.onHandleChange, placeholder: '3', value: props.copies, 'aria-describedby': 'basic-addon1' })
 						),
@@ -28937,7 +29077,7 @@ var ItemPanelCalculator = function ItemPanelCalculator(props) {
 								{ className: 'input-group-btn' },
 								_react2.default.createElement(
 									'button',
-									{ type: 'submit', className: 'btn btn-calc-res' },
+									{ type: 'submit', className: 'btn btn-default btn-calc-res' },
 									_react2.default.createElement(
 										'strong',
 										null,
@@ -29008,6 +29148,36 @@ var FetchNotification = function FetchNotification(props) {
 };
 
 exports.default = FetchNotification;
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DonateBtn = function DonateBtn(props) {
+	return _react2.default.createElement(
+		"form",
+		{ action: "https://www.paypal.com/cgi-bin/webscr", method: "post", target: "_top" },
+		_react2.default.createElement("input", { type: "hidden", name: "cmd", value: "_s-xclick" }),
+		_react2.default.createElement("input", { type: "hidden", name: "encrypted", value: "-----BEGIN PKCS7-----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-----END PKCS7-----\r " }),
+		_react2.default.createElement("input", { type: "image", src: "https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif", border: "0", name: "submit", alt: "PayPal - The safer, easier way to pay online!", formTarget: "_blank", className: "paypal-btn" }),
+		_react2.default.createElement("img", { alt: "", border: "0", src: "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", width: "1", height: "1" })
+	);
+};
+
+exports.default = DonateBtn;
 
 /***/ })
 /******/ ]);

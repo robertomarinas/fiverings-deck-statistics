@@ -19,7 +19,7 @@ const ItemPanelCurve = (props) => {
 			<div className="item">
 				<div className="panel panel-default">
 				  <div className="panel-heading">
-				  	<h3 className="panel-title">Curve Chart (Fate cost)</h3>
+				  	<h3 className="panel-title">Fate Cost ({props.side})</h3>
 				  </div>
 				  <div className="panel-body">
 				    <CurveDiagram data={curve} selected={props.id} />

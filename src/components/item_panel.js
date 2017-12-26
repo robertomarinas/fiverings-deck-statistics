@@ -9,24 +9,32 @@ const ItemPanel = (props) => {
 	let listGroupItem = [];
 	let panelType = null;
 	let flag = false;
+	let deckObj;
 
 	switch (true) {
 
 		case props.type == 'clan':
 			panelType = 'Clan:';
+			
 			const clanInfo = props.decks.list.map((deck, index) => {
+				if(deck.urlType === 'strains') {
+					deckObj = deck.record.head;
+				} else if(deck.urlType === 'decks') {
+					deckObj = deck.record;
+				}
+				
 				if(deck.record.id === props.selected) {
 					return (
 						<div key={index}>
-							<button className="list-group-item">{deck.record.head.primary_clan}</button>
-							<button className="list-group-item">{deck.record.head.format}</button>	
+							<button className="list-group-item" disabled>{deckObj.primary_clan}</button>
+							<button className="list-group-item" disabled>{deckObj.format}</button>
 						</div>
 					)	
 				}
 			});
 
 			listGroupItem = props.deck.map((deck, index) => {
-				if(props.cardList[deck.id].type == props.type2) {
+				if(props.cardList[deck.id].type == props.type2 || props.cardList[deck.id].type == 'role') {
 					return <button key={index} data-key={deck.id} onClick={props.onViewItemModal} className="list-group-item">{props.cardList[deck.id].name}</button>
 				}
 			});
@@ -57,35 +65,35 @@ const ItemPanel = (props) => {
 			listGroupItem = props.deck.map((deck, index) => {
 				if(props.cardList[deck.id].side == props.type && props.cardList[deck.id].type == props.type2) {
 					typeCount += deck.count;
-					typePercent = ((typeCount / props.count) * 100).toFixed(1);
+					typePercent = ((typeCount / props.count) * 100).toFixed(2);
 
 					panelType = `${props.type2} (${typeCount}) (${typePercent}%)`;
 
 					// Get icons
 					switch (props.cardList[deck.id].clan) {
 						case 'neutral':
-							icon = 'icon-clan-neutral fg-dark-neutral';
+							icon = 'icon-clan-neutral';
 						break;
 						case 'lion':
-							icon = 'icon-clan-lion fg-dark-lion';
+							icon = 'icon-clan-lion';
 						break;
 						case 'crane':
-							icon = 'icon-clan-crane fg-dark-crane';
+							icon = 'icon-clan-crane';
 						break;
 						case 'unicorn':
-							icon = 'icon-clan-unicorn fg-dark-unicorn';
+							icon = 'icon-clan-unicorn';
 						break;
 						case 'scorpion':
-							icon = 'icon-clan-scorpion fg-dark-scorpion';
+							icon = 'icon-clan-scorpion';
 						break;
 						case 'dragon':
-							icon = 'icon-clan-dragon fg-dark-dragon';
+							icon = 'icon-clan-dragon';
 						break;
 						case 'phoenix':
-							icon = 'icon-clan-phoenix fg-dark-phoenix';
+							icon = 'icon-clan-phoenix';
 						break;
 						case 'crab':
-							icon = 'icon-clan-crab fg-dark-crab';
+							icon = 'icon-clan-crab';
 						break;
 					}
 					classes = `${icon} list-group-item`;

@@ -9,6 +9,7 @@ import CardList from '../components/card_list';
 import CurveDiagram from '../components/curve_diagram';
 import ModalContent from '../components/modal_content';
 import DeckList from '../components/deck_list';
+import DonateBtn from '../components/donate_btn';
 
 const customStyles = {
   overlay : {
@@ -47,12 +48,22 @@ class App extends Component {
 			currentDynastyCount: 0,
 			currentConflictCount: 0,
 			curve: {
-				zero: 0,
-				one: 0,
-				two: 0,
-				three: 0,
-				four: 0,
-				five: 0
+				dynasty: {
+					zero: 0,
+					one: 0,
+					two: 0,
+					three: 0,
+					four: 0,
+					five: 0
+				},
+				conflict: {
+					zero: 0,
+					one: 0,
+					two: 0,
+					three: 0,
+					four: 0,
+					five: 0
+				}
 			},
 			noCost: 0
 	    };
@@ -106,8 +117,12 @@ class App extends Component {
 		// Clean States
 		this.setState({ currentDynastyCount: null });
 		this.setState({ currentConflictCount: null });
+		this.setState({ noCost: null });
 		this.setState({
-			curve: {zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0}
+			curve: {
+				dynasty: { zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0 },
+				conflict: { zero: 0, one: 0, two: 0, three: 0, four: 0, five: 0 }
+			}
 		});
 		
 		// set State to the selected ID
@@ -133,8 +148,14 @@ class App extends Component {
 
 		this.setState({optimizedCardsList: fateCost});
 
-		const selectedDeck = Object.entries(this.props.decks.list[index].record.head.cards);
-
+		let selectedDeck;
+		// Check URL type (decks or strains)
+		if(this.props.decks.list[index].urlType === 'strains') {
+			selectedDeck = Object.entries(this.props.decks.list[index].record.head.cards);
+		} else if(this.props.decks.list[index].urlType === 'decks') {
+			selectedDeck = Object.entries(this.props.decks.list[index].record.cards);
+		}
+		
 		selectedDeck.map(value => {
 			newDeckArr = newDeckArr.concat({ id: value[0], count: value[1] });	
 		});
@@ -149,22 +170,35 @@ class App extends Component {
 
 	onGetCost(cardId, cardCount, cardsList) {
 
+		let side;
+		if(cardsList[cardId].side === 'dynasty') {
+			side = 'dynasty';
+		} else if(cardsList[cardId].side === 'conflict') {
+			side = 'conflict';
+		}
+
 		switch (cardsList[cardId].cost) {
 
 			case 0:
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        zero: prevState.curve.zero + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		zero: prevState.curve[side].zero + cardCount
+				    	}
 				    }
 				}));
-				break;
+			break;
 
 			case 1: 
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        one: prevState.curve.one + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		one: prevState.curve[side].one + cardCount
+				    	}
 				    }
 				}));
 				break;
@@ -172,8 +206,11 @@ class App extends Component {
 			case 2: 
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        two: prevState.curve.two + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		two: prevState.curve[side].two + cardCount
+				    	}
 				    }
 				}));
 				break;
@@ -181,8 +218,11 @@ class App extends Component {
 			case 3: 
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        three: prevState.curve.three + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		three: prevState.curve[side].three + cardCount
+				    	}
 				    }
 				}));
 				break;
@@ -190,8 +230,11 @@ class App extends Component {
 			case 4: 
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        four: prevState.curve.four + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		four: prevState.curve[side].four + cardCount
+				    	}
 				    }
 				}));
 				break;
@@ -201,8 +244,11 @@ class App extends Component {
 			case 7: 
 				this.setState(prevState => ({
 				    curve: {
-				        ...prevState.curve,
-				        five: prevState.curve.five + cardCount
+				    	...prevState.curve,
+				    	[side]: {
+				    		...prevState.curve[side],
+				    		five: prevState.curve[side].five + cardCount
+				    	}
 				    }
 				}));
 				break;
@@ -211,7 +257,7 @@ class App extends Component {
 				this.setState((prevState) => ({
 					noCost: prevState.noCost + cardCount
 				}));
-
+			break;
 		}
 
 	}
@@ -242,8 +288,9 @@ class App extends Component {
 	}
 
 	render() {
+		console.log(this.state.noCost);
 		return (
-			<div>
+			<div className="react-content">
 		        <Modal
 		          isOpen={this.state.modalIsOpen}
 		          onAfterOpen={this.afterOpenModal}
@@ -258,19 +305,33 @@ class App extends Component {
 		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} />
 		          
 		        </Modal>
-				<div className="page-header">
-					<div className="container page-header-content">
-						<div className="row">
-							<div className="col-md-5"><h1>L5R: TCG Deck Statistics</h1></div>
-							<div className="col-md-7">
-								<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} />
+		        <div className="main-content">
+					<header>
+			        	<div className="page-header">
+							<div className="container page-header-content">
+								<div className="row">
+									<div className="col-md-5"><h1>L5R: TCG Deck Statistics</h1></div>
+									<div className="col-md-7">
+										<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} />
+									</div>
+								</div>
 							</div>
 						</div>
+			        </header>
+				
+					<div className="container">
+						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
 					</div>
-				</div>
-				<div className="container">
-					<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
-				</div>
+		        </div>
+		        
+				<footer>Under development by <a href="https://twitter.com/BobChu" target="_blank">@bobchu</a>. API from <a href="https://alsciende.github.io/fiveringsdb-api/" target="_blank">alsciende.github.io/fiveringsdb-api</a>
+					<div className="footer-small">
+						<p>This project is not in any way affiliated or supported by fiveringsdb or Fantasy Flight Games.</p>
+						<p>The source material on this app is copyrighted by Fantasy Flight Games.</p>
+						<p>Legend of the Five Rings is a trademark of Fantasy Flight Games.</p>
+						<div className="paypal-container"><span>You can support me by clicking</span> <DonateBtn /></div>
+					</div>
+				</footer>
 			</div>
 		)
 	}
@@ -282,8 +343,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 	return {
 		decks: state.decks,
-		cards: state.cardsList,
-		cardInfo: state.cardInfo
+		cards: state.cardsList
+		// cardInfo: state.cardInfo
 	}
 }
 

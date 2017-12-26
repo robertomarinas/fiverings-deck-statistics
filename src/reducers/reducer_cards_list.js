@@ -30,7 +30,7 @@ export default function(state = {
 		} else if(action.payload.request.status === 200) {
 			return Object.assign({}, state, {
 				status: action.payload.request.status,
-				statusText: <p><strong>Cards successfuly Fetched!</strong> Please enter the <strong>Permalink ID</strong> of your deck from <strong>fiveringsdb.com</strong>.</p>,
+				statusText: <p><strong>Cards Successfully Fetched!</strong> Please enter the <strong>FULL Permalink URL</strong> of your deck or <strong>ANY Deck URL</strong> from <strong>fiveringsdb.com</strong>.</p>,
 				list: action.payload.data
 			});
 		}

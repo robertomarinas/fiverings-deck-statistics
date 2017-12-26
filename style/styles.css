@@ -1,6 +1,6 @@
 /* Font Icons */
 @font-face{
-font-family:fiveringsdb;
+font-family: 'fiveringsicons';
 src:url(../static/fonts/fiveringsdb.40010fe.eot);
 src:url(../static/fonts/fiveringsdb.40010fe.eot#iefix) format("embedded-opentype"),
     url(../static/fonts/fiveringsdb.03ae900.ttf) format("truetype"),
@@ -10,12 +10,52 @@ src:url(../static/fonts/fiveringsdb.40010fe.eot#iefix) format("embedded-opentype
 font-weight:400;
 font-style:normal
 }
-/*[class*=" icon-"],[class^=icon-]{font-family:fiveringsdb!important;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*/
-.icon-clan-neutral:after{content:"\E90F";font-family:fiveringsdb!important;color:#646464;padding-left: 10px;}.icon-clan-crab:after{content:"\E907";font-family:fiveringsdb!important;color:#001c94;padding-left: 10px;}.icon-clan-crane:after{content:"\E908";font-family:fiveringsdb!important;color:#0089de;padding-left: 10px;}.icon-clan-dragon:after{content:"\E909";font-family:fiveringsdb!important;color:#00a472;padding-left: 10px;}.icon-clan-lion:after{content:"\E90A";font-family:fiveringsdb!important;color:#cb9d00;padding-left: 10px;}.icon-clan-phoenix:after{content:"\E90B";font-family:fiveringsdb!important;color:#c16400;padding-left: 10px;}.icon-clan-scorpion:after{content:"\E90C";font-family:fiveringsdb!important;color:#a61600;padding-left: 10px;}.icon-clan-unicorn:after{content:"\E90D";font-family:fiveringsdb!important;color:#780098;padding-left: 10px;}
-/*.fg-dark-crab{color:#001c94}.fg-dark-crane{color:#0089de}.fg-dark-dragon{color:#00a472}.fg-dark-lion{color:#cb9d00}.fg-dark-phoenix{color:#c16400}.fg-dark-scorpion{color:#a61600}.fg-dark-unicorn{color:#780098}.fg-dark-neutral{color:#646464}*/
-
+.icon-clan-neutral:after{content:"\E90F";font-family:'fiveringsicons'!important;color:#646464;padding-left: 10px;}.icon-clan-crab:after{content:"\E907";font-family:'fiveringsicons'!important;color:#001c94;padding-left: 10px;}.icon-clan-crane:after{content:"\E908";font-family:'fiveringsicons'!important;color:#0089de;padding-left: 10px;}.icon-clan-dragon:after{content:"\E909";font-family:'fiveringsicons'!important;color:#00a472;padding-left: 10px;}.icon-clan-lion:after{content:"\E90A";font-family:'fiveringsicons'!important;color:#cb9d00;padding-left: 10px;}.icon-clan-phoenix:after{content:"\E90B";font-family:'fiveringsicons'!important;color:#c16400;padding-left: 10px;}.icon-clan-scorpion:after{content:"\E90C";font-family:'fiveringsicons'!important;color:#a61600;padding-left: 10px;}.icon-clan-unicorn:after{content:"\E90D";font-family:'fiveringsicons'!important;color:#780098;padding-left: 10px;}
+html,
+body {
+	height: 100%;
+}
 body {
 	font-family: 'Roboto', sans-serif!important;
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+.react-content {
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+.main-content {
+	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+}
+footer {
+	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+	padding: 20px;
+	text-align: center;
+	background-color: #f5f5f5
+}
+.footer-small {
+	padding-top: 5px;
+}
+.footer-small 
+> p {
+	font-size: 0.8em!important;
+	margin-bottom: 0!important;
+}
+.paypal-container {
+	display: inline-block;
+	text-align: center;
+	height: 20px;
+	padding-top: 5px;
+	font-size: 0.8em;
+}
+.paypal-container form {
+	display: inline-block;
+	vertical-align: text-top;
+}
+.paypal-btn {
+	cursor: pointer;
 }
 
 h1 {
@@ -31,7 +71,6 @@ h1 {
 #container {
 	padding: 30px 0;
 }
-
 .page-header {
 	padding: 20px 0!important;
 }
@@ -39,25 +78,7 @@ h1 {
 .center {
 	text-align: center;
 }
-.btn.btn-default {
-	background: none;
-	padding: 0;
-	color: blue;
-	text-decoration: underline;
-	font-size: 12px;
-}
-
-.btn.btn-default:hover {
-	/*background-color: #ff0;*/
-	text-decoration: underline;
-}
-
-.deck-list {
-	/*height: 300px;*/
-}
-
 .deck-list li {
-	/*display: inline-block;*/
 	font-size: 0.8em;
 }
 
@@ -84,8 +105,6 @@ h1 {
 .prob-calc-form .input-group {
 	margin-bottom: 20px;
 }
-
-
 .prob-calc-form .input-group > .input-group-btn .btn {
 	width: 100%;
 }

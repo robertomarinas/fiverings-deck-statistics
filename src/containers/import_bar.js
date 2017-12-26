@@ -7,6 +7,7 @@ class ImportBar extends Component {
 
 		this.state = { 
 			perma: '' ,
+			// type: '',
 			exists: false
 		};
 		this.onInputChange = this.onInputChange.bind(this);
@@ -14,13 +15,25 @@ class ImportBar extends Component {
 	}
 
 	onInputChange(event) {
-		const id = event.target.value.trim();
+		let id = event.target.value.trim();
+
 		this.setState({ perma: id });
 	}
 
 	onFormSubmit(event) {
 		event.preventDefault();
-		this.props.fetchDeck(this.state.perma);
+		let id;
+		let type;
+		const perma = this.state.perma;
+		const segments = perma.split('/');
+
+		if (segments.length === 6) {
+			if(segments[4].length === 36) {
+				id = segments[4].toString();
+				type = segments[3].toString();
+			}
+		}
+		this.props.fetchDeck(id, type);
 		this.setState({ perma: '' });
 	}
 
@@ -34,13 +47,13 @@ class ImportBar extends Component {
 					<input 
 					className="form-control" 
 					onChange={this.onInputChange} 
-					placeholder="d7c244ae-d362-11e7-86fc-8e1ccf16fca4" 
+					placeholder="" 
 					value={this.state.perma} 
 					disabled={this.props.cards.status === 200 ? '' : 'disabled'}
 					/>
 					
 					<span className="input-group-btn">
-						<button type="submit" className="btn btn-secondary"><strong>Import Deck</strong></button>
+						<button type="submit" className="btn btn-default"><strong>Import Deck</strong></button>
 					</span>
 				</form>
 
@@ -49,7 +62,5 @@ class ImportBar extends Component {
 
 	}
 }
-
-
 
 export default ImportBar;

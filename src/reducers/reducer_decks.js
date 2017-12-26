@@ -2,12 +2,13 @@ import { DECK_PERMA } from '../actions/index';
 
 export default function(state = {
 
-	status: '', 
+	status: '',
 	list: []
 
 }, action) {
 
 	let flag = null;
+	let urlType;
 
 	switch (action.type) {
 		case DECK_PERMA:
@@ -15,12 +16,12 @@ export default function(state = {
 		if(action.payload.message === "Network Error" && action.error) {
 			flag = 1;
 			return Object.assign({}, state, {
-				status: "Network Error! Please check if you have connection and if ID is valid."
+				status: "Network Error! Please check if you have connection and if the URL is valid."
 			});
 		} else if(action.payload.request.status === 404) {
 			flag = 1;
 			return Object.assign({}, state, {
-				status: 'Invalid Permalink ID!'
+				status: 'Invalid Deck URL!'
 			});
 		} else if(action.payload.request.status === 500) {
 			flag = 1;
@@ -36,11 +37,13 @@ export default function(state = {
 			});
 
 			if(!flag) {
+				let responseURL = action.payload.request.responseURL;
+				responseURL = responseURL.split('/');
+
 				return Object.assign({}, state, {
-					list: state.list.concat([action.payload.data]),
+					list: state.list.concat([{urlType: responseURL[3], ...action.payload.data}]),
 					status: ''
 				});
-
 			} else {
 				return Object.assign({}, state, {
 					status: 'Deck already imported!'

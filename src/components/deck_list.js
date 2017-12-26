@@ -92,12 +92,12 @@ class DeckList extends Component {
 		if(copies > deckCount) {
 			flag = true;
 			this.setState({
-				ifCopies: 'Copies/Type cannot be greater than deck size.'
+				ifCopies: 'Cards cannot be greater than deck size.'
 			});
 		} else if(copies > 45) {
 			flag = true;
 			this.setState({
-				ifCopies: 'Copies/Type cannot exceed the max deck size of 45.'
+				ifCopies: 'Cards cannot exceed the max deck size of 45.'
 			});
 		}
 		if(draws > deckCount) {
@@ -155,7 +155,8 @@ class DeckList extends Component {
 				</div>
 				<div className="col-sm-12 col-md-3 col-lg-4">
 					<div className="row">
-						<ItemPanelCurve curve={this.props.curve} id={this.props.selectedID} />
+						<ItemPanelCurve curve={this.props.curve.dynasty} side="dynasty" id={this.props.selectedID} />
+						<ItemPanelCurve curve={this.props.curve.conflict} side="conflict" id={this.props.selectedID} />
 						<ItemPanelCalculator deck={this.props.optimizedDeckList} onHandleSubmit={this.handleSubmit} onHandleChange={this.handleChange} ifEmptyFields={this.state.ifEmptyFields} copies={this.state.copies} ifCopies={this.state.ifCopies} numDraws={this.state.numDraws} ifDraws={this.state.ifDraws} deckCount={this.state.deckCount} ifDeckCount={this.state.ifDeckCount} calcRes={this.state.calcRes} />
 					</div>
 				</div>

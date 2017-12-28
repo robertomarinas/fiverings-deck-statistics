@@ -1,0 +1,130 @@
+/* Font Icons */
+@font-face{
+font-family: 'fiveringsicons';
+src:url(../static/fonts/fiveringsdb.40010fe.eot);
+src:url(../static/fonts/fiveringsdb.40010fe.eot#iefix) format("embedded-opentype"),
+    url(../static/fonts/fiveringsdb.03ae900.ttf) format("truetype"),
+    url(../static/fonts/fiveringsdb.a541c33.woff) format("woff"),
+    url(../static/img/fiveringsdb.c5a64c2.svg#fiveringsdb) format("svg");
+
+font-weight:400;
+font-style:normal
+}
+.icon-clan-neutral:after{content:"\E90F";font-family:'fiveringsicons'!important;color:#646464;padding-left: 10px;}.icon-clan-crab:after{content:"\E907";font-family:'fiveringsicons'!important;color:#001c94;padding-left: 10px;}.icon-clan-crane:after{content:"\E908";font-family:'fiveringsicons'!important;color:#0089de;padding-left: 10px;}.icon-clan-dragon:after{content:"\E909";font-family:'fiveringsicons'!important;color:#00a472;padding-left: 10px;}.icon-clan-lion:after{content:"\E90A";font-family:'fiveringsicons'!important;color:#cb9d00;padding-left: 10px;}.icon-clan-phoenix:after{content:"\E90B";font-family:'fiveringsicons'!important;color:#c16400;padding-left: 10px;}.icon-clan-scorpion:after{content:"\E90C";font-family:'fiveringsicons'!important;color:#a61600;padding-left: 10px;}.icon-clan-unicorn:after{content:"\E90D";font-family:'fiveringsicons'!important;color:#780098;padding-left: 10px;}
+html,
+body {
+	height: 100%;
+}
+body {
+	font-family: 'Roboto', sans-serif!important;
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+.react-content {
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+.main-content {
+	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+}
+footer {
+	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+	padding: 20px;
+	text-align: center;
+	background-color: #f5f5f5
+}
+.footer-small {
+	padding-top: 5px;
+}
+.footer-small 
+> p {
+	font-size: 0.8em!important;
+	margin-bottom: 0!important;
+}
+.paypal-container {
+	display: inline-block;
+	text-align: center;
+	height: 20px;
+	padding-top: 5px;
+	font-size: 0.8em;
+}
+.paypal-container form {
+	display: inline-block;
+	vertical-align: text-top;
+}
+.paypal-btn {
+	cursor: pointer;
+}
+
+h1 {
+	color: #fff!important;
+	margin-top: 0!important;
+	font-family: 'Raleway', sans-serif!important;
+}
+
+.table {
+	border: 1px solid #eceeef;
+}
+
+#container {
+	padding: 30px 0;
+}
+.page-header {
+	padding: 20px 0!important;
+}
+
+.center {
+	text-align: center;
+}
+.deck-list li {
+	font-size: 0.8em;
+}
+
+.deck-list li label {
+	margin: 0;
+}
+
+.curve-container {
+	width: 300px;
+	margin: 0 auto;
+}
+
+.curve-diagram {
+	margin-top: 30px;
+}
+
+.curve-diagram .col-xs-2 {
+	position: relative;
+	height: 100%;
+	border: 1px solid;
+	background-color: #2F972F;
+}
+
+.prob-calc-form .input-group {
+	margin-bottom: 20px;
+}
+.prob-calc-form .input-group > .input-group-btn .btn {
+	width: 100%;
+}
+.prob-calc-form .input-group .input-group-addon.percent {
+	background-color: transparent;
+	border-spacing: 5px;
+	border-style: dashed;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+.btn-calc-res {
+	border-radius: 4px!important;
+}
+
+/*Imported Classes*/
+.page-header {
+	background-color: #000;
+	margin-top: 0!important;
+}
+.panel-title {
+	text-transform: capitalize;
+}
+

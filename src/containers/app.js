@@ -123,6 +123,7 @@ class App extends Component {
 		e.preventDefault();
 		const cardId = e.target.dataset.id;
 		this.props.fetchCardRulings(cardId);
+		this.setState({ newRuling: '' });
 		this.setState({ ifShowRuling: true });
 	}
 

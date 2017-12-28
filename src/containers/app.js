@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchCardsList, fetchCardInfo, fetchDeck } from '../actions/index';
+import { fetchCardsList, fetchDeck, fetchCardRulings } from '../actions/index';
 // Components
 import ImportBar from './import_bar';
 import CardList from '../components/card_list';
@@ -65,7 +65,9 @@ class App extends Component {
 					five: 0
 				}
 			},
-			noCost: 0
+			noCost: 0,
+			ifShowRuling: false,
+			newRuling: ''
 	    };
 
 		// For Modal
@@ -74,6 +76,8 @@ class App extends Component {
 		this.closeModal = this.closeModal.bind(this);
 		// Trigger modal
 		this.viewItemModal = this.viewItemModal.bind(this);
+		this.viewRulings = this.viewRulings.bind(this);
+
 		// Get ALL Data
 		this.onViewDeck = this.onViewDeck.bind(this);
 		this.onGetCost = this.onGetCost.bind(this);
@@ -84,6 +88,10 @@ class App extends Component {
 	componentDidMount() {
 		Modal.setAppElement('#root');
 		this.props.fetchCardsList();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({ newRuling: nextProps.cardRulings });
 	}
 
 	openModal() {
@@ -98,6 +106,8 @@ class App extends Component {
 	closeModal() {
 		this.setState({ selectedCard: null });
 		this.setState({ modalIsOpen: false });
+		this.setState({ ifShowRuling: false });
+		this.setState({ newRuling: '' });
 	}
 
 	viewItemModal(e) {
@@ -107,6 +117,17 @@ class App extends Component {
 			this.setState({ selectedCard: cardId });
 			this.openModal();
 		}
+	}
+
+	viewRulings(e) {
+		e.preventDefault();
+		const cardId = e.target.dataset.id;
+		this.props.fetchCardRulings(cardId);
+		this.setState({ ifShowRuling: true });
+	}
+
+	viewModalImage(e) {
+		e.preventDefault();
 	}
 
 	onViewDeck(e){
@@ -288,7 +309,6 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.state.noCost);
 		return (
 			<div className="react-content">
 		        <Modal
@@ -302,7 +322,7 @@ class App extends Component {
 		          <span ref={subtitle => this.subtitle = subtitle}></span>
 		          <button className="btn btn-primary" onClick={this.closeModal}>close</button>
 		          
-		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} />
+		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} cardRulings={this.state.newRuling} ifShowRuling={this.state.ifShowRuling} onViewRulings={this.viewRulings} />
 		          
 		        </Modal>
 		        <div className="main-content">
@@ -326,7 +346,7 @@ class App extends Component {
 		        
 				<footer>Under development by <a href="https://twitter.com/BobChu" target="_blank">@bobchu</a>. API from <a href="https://alsciende.github.io/fiveringsdb-api/" target="_blank">alsciende.github.io/fiveringsdb-api</a>
 					<div className="footer-small">
-						<p>This project is not in any way affiliated or supported by fiveringsdb or Fantasy Flight Games.</p>
+						<p>This app is not affiliated or supported by fiveringsdb or Fantasy Flight Games.</p>
 						<p>The source material on this app is copyrighted by Fantasy Flight Games.</p>
 						<p>Legend of the Five Rings is a trademark of Fantasy Flight Games.</p>
 						<div className="paypal-container"><span>You can support me by clicking</span> <DonateBtn /></div>
@@ -338,13 +358,13 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCardsList, fetchCardInfo, fetchDeck }, dispatch);
+	return bindActionCreators({ fetchCardsList, fetchDeck, fetchCardRulings }, dispatch);
 }
 function mapStateToProps(state) {
 	return {
 		decks: state.decks,
-		cards: state.cardsList
-		// cardInfo: state.cardInfo
+		cards: state.cardsList,
+		cardRulings: state.cardRulings
 	}
 }
 

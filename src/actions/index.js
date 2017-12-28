@@ -8,6 +8,7 @@ const CARD_URL 	 = `https://api.fiveringsdb.com/cards/`;
 export const DECK_PERMA = 'DECK_PERMA';
 export const CARDS_LIST = 'CARDS_LIST';
 export const CARD_ID = 'CARD_ID';
+export const CARD_RULINGS = 'CARD_RULINGS';
 
 // Action Creator
 export function fetchDeck(id, type) {
@@ -43,15 +44,15 @@ export function fetchCardsList() {
 
 }
 
-// export function fetchCardInfo(cardID) {
+export function fetchCardRulings(cardID) {
 
-// 	const url = `${CARD_URL}${cardID}`;
-// 	const request = axios.get(url);
+	const url = `${CARD_URL}${cardID}/rulings`;
+	const request = axios.get(url);
 
-// 	return {
-// 		type: CARD_ID,
-// 		payload: request
-// 	}
+	return {
+		type: CARD_RULINGS,
+		payload: request
+	}
 
-// }
+}
 

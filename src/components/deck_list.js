@@ -92,12 +92,12 @@ class DeckList extends Component {
 		if(copies > deckCount) {
 			flag = true;
 			this.setState({
-				ifCopies: 'Cards cannot be greater than deck size.'
+				ifCopies: 'Copies cannot be greater than deck size.'
 			});
 		} else if(copies > 45) {
 			flag = true;
 			this.setState({
-				ifCopies: 'Cards cannot exceed the max deck size of 45.'
+				ifCopies: 'Copies cannot exceed the max deck size of 45.'
 			});
 		}
 		if(draws > deckCount) {

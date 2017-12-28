@@ -1,4 +1,5 @@
 import React from 'react';
+import FaSpinner from './fa_spinner';
 
 const FetchNotification = (props) => {
 
@@ -8,7 +9,7 @@ const FetchNotification = (props) => {
 
 	let loadMsg;
 	if(!props.cards.statusText) {	
-		loadMsg = <p><strong>Please wait</strong> for the cards to be <strong>fetched..</strong></p>;
+		loadMsg = <p><strong>Please wait</strong> for the cards to be <strong>fetched.</strong> <FaSpinner /></p>;
 	} else {
 		loadMsg = props.cards.statusText;
 	}

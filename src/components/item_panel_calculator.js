@@ -15,7 +15,7 @@ const ItemPanelCalculator = (props) => {
 				    <form onSubmit={props.onHandleSubmit} className="prob-calc-form">
 				      <ValidationAlertDiv type={props.ifEmptyFields} alertType="fail" />
 						<div className="input-group">
-						  <span className="input-group-addon" id="basic-addon1"># of Cards:</span>
+						  <span className="input-group-addon" id="basic-addon1"># of Copies:</span>
 						  <input type="text" className="form-control" name="copies" onChange={props.onHandleChange} placeholder="3" value={props.copies} aria-describedby="basic-addon1" />
 						  
 						</div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FaSpinner from '../components/fa_spinner';
 
 class ImportBar extends Component {
 
@@ -7,7 +8,6 @@ class ImportBar extends Component {
 
 		this.state = { 
 			perma: '' ,
-			// type: '',
 			exists: false
 		};
 		this.onInputChange = this.onInputChange.bind(this);
@@ -43,7 +43,6 @@ class ImportBar extends Component {
 			<div>
 				<div className="" style={{color: '#F00'}}>{this.props.decks.status}</div>
 				<form onSubmit={this.onFormSubmit} className="import-form input-group" style={{}}>
-
 					<input 
 					className="form-control" 
 					onChange={this.onInputChange} 
@@ -56,7 +55,6 @@ class ImportBar extends Component {
 						<button type="submit" className="btn btn-default"><strong>Import Deck</strong></button>
 					</span>
 				</form>
-
 			</div>
 		) 
 

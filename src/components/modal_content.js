@@ -74,8 +74,7 @@ const ModalContent = (props) => {
 		}
 	});
 
-	cardInfo = cardInfo.concat([ <tr key="rulings"><td>Rulings</td><td><CardRulings ifShowRuling={props.ifShowRuling} cardId={props.cardId} cardRulings={props.cardRulings} onViewRulings={props.onViewRulings} /></td></tr> ]);
-// <a href="#" data-id={props.cardId} onClick={props.onViewRulings}>view rulings</a>
+	cardInfo = cardInfo.concat([ <tr key="rulings"><td>Rulings</td><td><CardRulings ifShowRuling={props.ifShowRuling} cardId={props.cardId} cardRulings={props.cardRulings} ifFetchRuling={props.ifFetchRuling} onViewRulings={props.onViewRulings} /></td></tr> ]);
 
 	return (
 		<div>

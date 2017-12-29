@@ -22,7 +22,7 @@ const ItemPanelCalculator = (props) => {
 						<ValidationAlertDiv type={props.ifCopies} alertType="fail" />
 						<div className="input-group">
 						  <span className="input-group-addon" id="basic-addon1"># of Draws:</span>
-						  <input type="text" className="form-control" name="numDraws" onChange={props.onHandleChange} placeholder="1" value={props.numDraws} aria-describedby="basic-addon1" />
+						  <input type="text" className="form-control" name="numDraws" onChange={props.onHandleChange} placeholder="5" value={props.numDraws} aria-describedby="basic-addon1" />
 						</div>
 						<ValidationAlertDiv type={props.ifDraws} alertType="fail" />
 						<div className="input-group">

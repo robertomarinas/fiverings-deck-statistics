@@ -23,10 +23,13 @@ const customStyles = {
   },
   content : {
   	// width				  : '200px',
-    top                   : '15%',
+  	maxWidth			  : 700,
+  	maxHeight             : 700,
+  	margin 				  : '0 auto',
+    top                   : '10%',
     left                  : '10%',
     right                 : '10%',
-    bottom                : '15%',
+    bottom                : '10%',
     // marginRight           : '-50%',
     // transform             : 'translate(-50%, -50%)'
   }
@@ -66,6 +69,8 @@ class App extends Component {
 				}
 			},
 			noCost: 0,
+			ifFetchDeck: false,
+			ifFetchRuling: false,
 			ifShowRuling: false,
 			newRuling: ''
 	    };
@@ -77,7 +82,6 @@ class App extends Component {
 		// Trigger modal
 		this.viewItemModal = this.viewItemModal.bind(this);
 		this.viewRulings = this.viewRulings.bind(this);
-
 		// Get ALL Data
 		this.onViewDeck = this.onViewDeck.bind(this);
 		this.onGetCost = this.onGetCost.bind(this);
@@ -91,6 +95,7 @@ class App extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		this.setState({ ifFetchRuling: false });
 		this.setState({ newRuling: nextProps.cardRulings });
 	}
 
@@ -124,6 +129,7 @@ class App extends Component {
 		const cardId = e.target.dataset.id;
 		this.props.fetchCardRulings(cardId);
 		this.setState({ newRuling: '' });
+		this.setState({ ifFetchRuling: true });
 		this.setState({ ifShowRuling: true });
 	}
 
@@ -323,7 +329,7 @@ class App extends Component {
 		          <span ref={subtitle => this.subtitle = subtitle}></span>
 		          <button className="btn btn-primary" onClick={this.closeModal}>close</button>
 		          
-		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} cardRulings={this.state.newRuling} ifShowRuling={this.state.ifShowRuling} onViewRulings={this.viewRulings} />
+		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} cardRulings={this.state.newRuling} ifFetchRuling={this.state.ifFetchRuling} ifShowRuling={this.state.ifShowRuling} onViewRulings={this.viewRulings} />
 		          
 		        </Modal>
 		        <div className="main-content">

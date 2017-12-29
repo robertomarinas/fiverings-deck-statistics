@@ -12,6 +12,7 @@ export const CARD_RULINGS = 'CARD_RULINGS';
 
 // Action Creator
 export function fetchDeck(id, type) {
+	let url;
 	let urlType;
 	switch (type) {
 		case 'strains':
@@ -22,7 +23,12 @@ export function fetchDeck(id, type) {
 			urlType = DECK_URL;
 		break;
 	}
-	const url = `${urlType}${id}`;
+
+	if(id && type) {
+		url = `${urlType}${id}`;	
+	} else {
+		url = `${DECK_URL}${id}`;
+	}
 	
 	// Returns a Promise as Payload
 	const request = axios.get(url);

@@ -975,6 +975,7 @@ var CARD_RULINGS = exports.CARD_RULINGS = 'CARD_RULINGS';
 
 // Action Creator
 function fetchDeck(id, type) {
+	var url = void 0;
 	var urlType = void 0;
 	switch (type) {
 		case 'strains':
@@ -985,7 +986,12 @@ function fetchDeck(id, type) {
 			urlType = DECK_URL;
 			break;
 	}
-	var url = '' + urlType + id;
+
+	if (id && type) {
+		url = '' + urlType + id;
+	} else {
+		url = '' + DECK_URL + id;
+	}
 
 	// Returns a Promise as Payload
 	var request = _axios2.default.get(url);
@@ -26478,10 +26484,13 @@ var customStyles = {
 	},
 	content: {
 		// width				  : '200px',
-		top: '15%',
+		maxWidth: 700,
+		maxHeight: 700,
+		margin: '0 auto',
+		top: '10%',
 		left: '10%',
 		right: '10%',
-		bottom: '15%'
+		bottom: '10%'
 		// marginRight           : '-50%',
 		// transform             : 'translate(-50%, -50%)'
 	}
@@ -26524,6 +26533,8 @@ var App = function (_Component) {
 				}
 			},
 			noCost: 0,
+			ifFetchDeck: false,
+			ifFetchRuling: false,
 			ifShowRuling: false,
 			newRuling: ''
 		};
@@ -26535,7 +26546,6 @@ var App = function (_Component) {
 		// Trigger modal
 		_this.viewItemModal = _this.viewItemModal.bind(_this);
 		_this.viewRulings = _this.viewRulings.bind(_this);
-
 		// Get ALL Data
 		_this.onViewDeck = _this.onViewDeck.bind(_this);
 		_this.onGetCost = _this.onGetCost.bind(_this);
@@ -26553,6 +26563,7 @@ var App = function (_Component) {
 	}, {
 		key: 'componentWillReceiveProps',
 		value: function componentWillReceiveProps(nextProps) {
+			this.setState({ ifFetchRuling: false });
 			this.setState({ newRuling: nextProps.cardRulings });
 		}
 	}, {
@@ -26590,6 +26601,8 @@ var App = function (_Component) {
 			e.preventDefault();
 			var cardId = e.target.dataset.id;
 			this.props.fetchCardRulings(cardId);
+			this.setState({ newRuling: '' });
+			this.setState({ ifFetchRuling: true });
 			this.setState({ ifShowRuling: true });
 		}
 	}, {
@@ -26796,7 +26809,7 @@ var App = function (_Component) {
 						{ className: 'btn btn-primary', onClick: this.closeModal },
 						'close'
 					),
-					_react2.default.createElement(_modal_content2.default, { ref: this.subtitle, cardId: this.state.selectedCard, cardsList: this.state.optimizedCardsList, cardRulings: this.state.newRuling, ifShowRuling: this.state.ifShowRuling, onViewRulings: this.viewRulings })
+					_react2.default.createElement(_modal_content2.default, { ref: this.subtitle, cardId: this.state.selectedCard, cardsList: this.state.optimizedCardsList, cardRulings: this.state.newRuling, ifFetchRuling: this.state.ifFetchRuling, ifShowRuling: this.state.ifShowRuling, onViewRulings: this.viewRulings })
 				),
 				_react2.default.createElement(
 					'div',
@@ -27948,6 +27961,7 @@ var ImportBar = function (_Component) {
 
 		_this.state = {
 			perma: '',
+			ifFetchDeck: false,
 			exists: false
 		};
 		_this.onInputChange = _this.onInputChange.bind(_this);
@@ -27956,6 +27970,11 @@ var ImportBar = function (_Component) {
 	}
 
 	_createClass(ImportBar, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(nextProps) {
+			this.setState({ ifFetchDeck: false });
+		}
+	}, {
 		key: 'onInputChange',
 		value: function onInputChange(event) {
 			var id = event.target.value.trim();
@@ -27971,26 +27990,31 @@ var ImportBar = function (_Component) {
 			var perma = this.state.perma;
 			var segments = perma.split('/');
 
-			if (segments.length === 6) {
+			if (segments.length >= 5) {
 				if (segments[4].length === 36) {
 					id = segments[4].toString();
 					type = segments[3].toString();
+				} else {
+					id = perma;
 				}
+			} else {
+				id = perma;
 			}
+
 			this.props.fetchDeck(id, type);
+			this.setState({ ifFetchDeck: true });
 			this.setState({ perma: '' });
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-
 			return _react2.default.createElement(
 				'div',
 				null,
 				_react2.default.createElement(
 					'div',
-					{ className: '', style: { color: '#F00' } },
-					this.props.decks.status
+					{ style: { color: '#F00' } },
+					this.state.ifFetchDeck ? _react2.default.createElement('span', { className: 'fa fa-spinner fa-spin' }) : this.props.decks.status
 				),
 				_react2.default.createElement(
 					'form',
@@ -28245,10 +28269,9 @@ var ModalContent = function ModalContent(props) {
 		_react2.default.createElement(
 			'td',
 			null,
-			_react2.default.createElement(_card_rulings2.default, { ifShowRuling: props.ifShowRuling, cardId: props.cardId, cardRulings: props.cardRulings, onViewRulings: props.onViewRulings })
+			_react2.default.createElement(_card_rulings2.default, { ifShowRuling: props.ifShowRuling, cardId: props.cardId, cardRulings: props.cardRulings, ifFetchRuling: props.ifFetchRuling, onViewRulings: props.onViewRulings })
 		)
 	)]);
-	// <a href="#" data-id={props.cardId} onClick={props.onViewRulings}>view rulings</a>
 
 	return _react2.default.createElement(
 		'div',
@@ -28302,39 +28325,49 @@ var CardRulings = function CardRulings(props) {
 		);
 	} else {
 		if (props.cardRulings.hasOwnProperty('records')) {
-			rulings = props.cardRulings.records.map(function (rule, index) {
 
-				return _react2.default.createElement(
-					'dl',
-					{ key: index },
-					_react2.default.createElement(
-						'dt',
-						null,
-						'Source:'
-					),
-					_react2.default.createElement(
-						'dd',
-						null,
-						rule.source
-					),
-					_react2.default.createElement(
-						'dt',
-						null,
-						'Text:'
-					),
-					_react2.default.createElement(
-						'dd',
-						null,
-						rule.text
-					)
+			if (props.cardRulings.records.length > 0) {
+				rulings = props.cardRulings.records.map(function (rule, index) {
+
+					return _react2.default.createElement(
+						'dl',
+						{ key: index },
+						_react2.default.createElement(
+							'dt',
+							null,
+							'Source:'
+						),
+						_react2.default.createElement(
+							'dd',
+							null,
+							rule.source
+						),
+						_react2.default.createElement(
+							'dt',
+							null,
+							'Text:'
+						),
+						_react2.default.createElement(
+							'dd',
+							null,
+							rule.text
+						)
+					);
+				});
+			} else {
+				rulings = _react2.default.createElement(
+					'strong',
+					null,
+					'No rulings available for this card.'
 				);
-			});
+			}
 		}
 	}
 
 	return _react2.default.createElement(
 		'div',
 		null,
+		props.ifFetchRuling ? _react2.default.createElement('span', { className: 'fa fa-spinner fa-spin' }) : '',
 		rulings
 	);
 };
@@ -29194,7 +29227,7 @@ var ItemPanelCalculator = function ItemPanelCalculator(props) {
 								{ className: 'input-group-addon', id: 'basic-addon1' },
 								'# of Draws:'
 							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'numDraws', onChange: props.onHandleChange, placeholder: '1', value: props.numDraws, 'aria-describedby': 'basic-addon1' })
+							_react2.default.createElement('input', { type: 'text', className: 'form-control', name: 'numDraws', onChange: props.onHandleChange, placeholder: '5', value: props.numDraws, 'aria-describedby': 'basic-addon1' })
 						),
 						_react2.default.createElement(_validation_alert_div2.default, { type: props.ifDraws, alertType: 'fail' }),
 						_react2.default.createElement(

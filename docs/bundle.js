@@ -26832,7 +26832,7 @@ var App = function (_Component) {
 										_react2.default.createElement(
 											'h1',
 											null,
-											'L5R: TCG Deck Statistics'
+											'L5R: LCG Deck Statistics'
 										)
 									),
 									_react2.default.createElement(

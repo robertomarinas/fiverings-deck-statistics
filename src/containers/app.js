@@ -337,7 +337,7 @@ class App extends Component {
 			        	<div className="page-header">
 							<div className="container page-header-content">
 								<div className="row">
-									<div className="col-md-5"><h1>L5R: TCG Deck Statistics</h1></div>
+									<div className="col-md-5"><h1>L5R: LCG Deck Statistics</h1></div>
 									<div className="col-md-7">
 										<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} />
 									</div>

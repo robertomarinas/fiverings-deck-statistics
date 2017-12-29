@@ -14,7 +14,7 @@ import DonateBtn from '../components/donate_btn';
 const customStyles = {
   overlay : {
     position          : 'fixed',
-    zIndex            : 9,
+    zIndex            : 10,
     top               : 0,
     left              : 0,
     right             : 0,
@@ -24,12 +24,12 @@ const customStyles = {
   content : {
   	// width				  : '200px',
   	maxWidth			  : 700,
-  	maxHeight             : 700,
+  	maxHeight             : 900,
   	margin 				  : '0 auto',
-    top                   : '10%',
+    top                   : '12%',
+    bottom                : '12%',
     left                  : '10%',
     right                 : '10%',
-    bottom                : '10%',
     // marginRight           : '-50%',
     // transform             : 'translate(-50%, -50%)'
   }

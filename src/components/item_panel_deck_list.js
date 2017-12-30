@@ -5,6 +5,7 @@ const ItemPanelDeckList = (props) => {
 	const panelType = "Deck List:";
 	let listGroupItem;
 	let deckObj;
+	const idPanel = `${props.type}`;
 
 	if(props.decks.list.length === 0) {
 		listGroupItem = <div className="alert alert-info"><strong>Decks</strong> will be displayed here. <strong>Click on it</strong> after you successfully imported a <strong>deck</strong>.</div>;
@@ -27,7 +28,7 @@ const ItemPanelDeckList = (props) => {
 		<div className="item">
     		<div className="panel panel-default">
 			  <div className="panel-heading">
-			  	<h3 className="panel-title">{panelType}</h3>
+			  	<h3 className="panel-title">{panelType} <button onClick={props.onTogglePanel} id={idPanel} className="fa fa-toggle-on" aria-hidden="true"></button></h3>
 			  </div>
 			  <div className="panel-body" style={{ maxHeight: 400, overflow: 'auto', overflowX: 'hidden' }}>
 			    <div className="list-group">

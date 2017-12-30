@@ -127,4 +127,12 @@ h1 {
 .panel-title {
 	text-transform: capitalize;
 }
+button.fa {
+	background: none;
+	border: 0;
+	outline: 0;
+}
+.fa-toggle-on:before {
+    color: #337ab7;
+}
 

@@ -82,6 +82,8 @@ class App extends Component {
 		// Trigger modal
 		this.viewItemModal = this.viewItemModal.bind(this);
 		this.viewRulings = this.viewRulings.bind(this);
+		// Trigger Panels
+		this.togglePanel = this.togglePanel.bind(this);
 		// Get ALL Data
 		this.onViewDeck = this.onViewDeck.bind(this);
 		this.onGetCost = this.onGetCost.bind(this);
@@ -137,6 +139,19 @@ class App extends Component {
 		e.preventDefault();
 	}
 
+	togglePanel(e) {
+		e.preventDefault();
+		const element = e.target;
+		if(element.parentNode.parentNode.parentNode.lastChild.clientHeight === 0) {
+			element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: auto";
+			element.className = 'fa fa-toggle-on';
+		} else {
+			element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: 0; overflow: hidden; padding: 0";
+			element.className = 'fa fa-toggle-off';
+		}
+	}
+
+	// Display deck statistics ASYNC
 	onViewDeck(e){
 
 		const index = parseInt(e.target.dataset.index);
@@ -347,7 +362,7 @@ class App extends Component {
 			        </header>
 				
 					<div className="container">
-						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
+						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
 					</div>
 		        </div>
 		        

@@ -26546,6 +26546,8 @@ var App = function (_Component) {
 		// Trigger modal
 		_this.viewItemModal = _this.viewItemModal.bind(_this);
 		_this.viewRulings = _this.viewRulings.bind(_this);
+		// Trigger Panels
+		_this.togglePanel = _this.togglePanel.bind(_this);
 		// Get ALL Data
 		_this.onViewDeck = _this.onViewDeck.bind(_this);
 		_this.onGetCost = _this.onGetCost.bind(_this);
@@ -26610,6 +26612,22 @@ var App = function (_Component) {
 		value: function viewModalImage(e) {
 			e.preventDefault();
 		}
+	}, {
+		key: 'togglePanel',
+		value: function togglePanel(e) {
+			e.preventDefault();
+			var element = e.target;
+			if (element.parentNode.parentNode.parentNode.lastChild.clientHeight === 0) {
+				element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: auto";
+				element.className = 'fa fa-toggle-on';
+			} else {
+				element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: 0; overflow: hidden; padding: 0";
+				element.className = 'fa fa-toggle-off';
+			}
+		}
+
+		// Display deck statistics ASYNC
+
 	}, {
 		key: 'onViewDeck',
 		value: function onViewDeck(e) {
@@ -26847,7 +26865,7 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'container' },
-						_react2.default.createElement(_deck_list2.default, { decks: this.props.decks, cards: this.props.cards, selectedID: this.state.selectedID, optimizedDeckList: this.state.optimizedDeckList, optimizedCardsList: this.state.optimizedCardsList, curve: this.state.curve, currentDynastyCount: this.state.currentDynastyCount, currentConflictCount: this.state.currentConflictCount, onViewItemModal: this.viewItemModal, onViewDeck: this.onViewDeck, onGetCost: this.onGetCost, onGetDeckCount: this.onGetDeckCount, onGetAllData: this.onGetAllData })
+						_react2.default.createElement(_deck_list2.default, { decks: this.props.decks, cards: this.props.cards, selectedID: this.state.selectedID, optimizedDeckList: this.state.optimizedDeckList, optimizedCardsList: this.state.optimizedCardsList, curve: this.state.curve, currentDynastyCount: this.state.currentDynastyCount, currentConflictCount: this.state.currentConflictCount, onViewItemModal: this.viewItemModal, onTogglePanel: this.togglePanel, onViewDeck: this.onViewDeck, onGetCost: this.onGetCost, onGetDeckCount: this.onGetDeckCount, onGetAllData: this.onGetAllData })
 					)
 				),
 				_react2.default.createElement(
@@ -28567,9 +28585,9 @@ var DeckList = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ className: 'col-sm-4 col-md-3 col-lg-2' },
-					_react2.default.createElement(_item_panel_deck_list2.default, { decks: this.props.decks, type: 'deckList', selected: this.props.selectedID, onViewDeck: this.props.onViewDeck }),
-					_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, type: 'clan', type2: 'stronghold', cardList: this.props.optimizedCardsList, selected: this.props.selectedID }),
-					_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, type: 'province', type2: 'province', cardList: this.props.optimizedCardsList, selected: this.props.selectedID })
+					_react2.default.createElement(_item_panel_deck_list2.default, { onTogglePanel: this.props.onTogglePanel, decks: this.props.decks, type: 'deckList', selected: this.props.selectedID, onViewDeck: this.props.onViewDeck }),
+					_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, type: 'clan', type2: 'stronghold', cardList: this.props.optimizedCardsList, selected: this.props.selectedID }),
+					_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, type: 'province', type2: 'province', cardList: this.props.optimizedCardsList, selected: this.props.selectedID })
 				),
 				_react2.default.createElement(
 					'div',
@@ -28582,16 +28600,16 @@ var DeckList = function (_Component) {
 							'div',
 							{ className: 'col-sm-6' },
 							_react2.default.createElement(_item_panel_head2.default, { decks: this.props.decks, head: 'dynasty', count: this.props.currentDynastyCount }),
-							_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'dynasty', type2: 'character', count: this.props.currentDynastyCount }),
-							_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'dynasty', type2: 'holding', count: this.props.currentDynastyCount })
+							_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'dynasty', type2: 'character', count: this.props.currentDynastyCount }),
+							_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'dynasty', type2: 'holding', count: this.props.currentDynastyCount })
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-sm-6' },
 							_react2.default.createElement(_item_panel_head2.default, { decks: this.props.decks, head: 'conflict', count: this.props.currentConflictCount }),
-							_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'event', count: this.props.currentConflictCount }),
-							_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'attachment', count: this.props.currentConflictCount }),
-							_react2.default.createElement(_item_panel2.default, { onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'character', count: this.props.currentConflictCount })
+							_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'event', count: this.props.currentConflictCount }),
+							_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'attachment', count: this.props.currentConflictCount }),
+							_react2.default.createElement(_item_panel2.default, { onTogglePanel: this.props.onTogglePanel, onViewItemModal: this.props.onViewItemModal, decks: this.props.decks, deck: this.props.optimizedDeckList, selected: this.props.selectedID, cardList: this.props.optimizedCardsList, type: 'conflict', type2: 'character', count: this.props.currentConflictCount })
 						)
 					)
 				),
@@ -28788,6 +28806,13 @@ var ItemPanel = function ItemPanel(props) {
 	var panelType = null;
 	var flag = false;
 	var deckObj = void 0;
+	var idPanel = void 0;
+
+	if (props.type && props.type2) {
+		idPanel = props.type + '-' + props.type2;
+	} else {
+		idPanel = '' + props.type;
+	}
 
 	switch (true) {
 
@@ -28922,7 +28947,9 @@ var ItemPanel = function ItemPanel(props) {
 					_react2.default.createElement(
 						'h3',
 						{ className: 'panel-title' },
-						panelType
+						panelType,
+						' ',
+						_react2.default.createElement('button', { onClick: props.onTogglePanel, id: idPanel, className: 'fa fa-toggle-on', 'aria-hidden': 'true' })
 					)
 				),
 				_react2.default.createElement(
@@ -28965,6 +28992,7 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 	var panelType = "Deck List:";
 	var listGroupItem = void 0;
 	var deckObj = void 0;
+	var idPanel = "" + props.type;
 
 	if (props.decks.list.length === 0) {
 		listGroupItem = _react2.default.createElement(
@@ -29019,7 +29047,9 @@ var ItemPanelDeckList = function ItemPanelDeckList(props) {
 				_react2.default.createElement(
 					"h3",
 					{ className: "panel-title" },
-					panelType
+					panelType,
+					" ",
+					_react2.default.createElement("button", { onClick: props.onTogglePanel, id: idPanel, className: "fa fa-toggle-on", "aria-hidden": "true" })
 				)
 			),
 			_react2.default.createElement(

@@ -10,6 +10,13 @@ const ItemPanel = (props) => {
 	let panelType = null;
 	let flag = false;
 	let deckObj;
+	let idPanel;
+	
+	if(props.type && props.type2) {
+		idPanel = `${props.type}-${props.type2}`;
+	} else {
+		idPanel = `${props.type}`;
+	}
 
 	switch (true) {
 
@@ -114,7 +121,7 @@ const ItemPanel = (props) => {
 			<div className="item">
 	    		<div className="panel panel-default">
 				  <div className="panel-heading">
-				  	<h3 className="panel-title">{panelType}</h3>
+				  	<h3 className="panel-title">{panelType} <button onClick={props.onTogglePanel} id={idPanel} className="fa fa-toggle-on" aria-hidden="true"></button></h3>
 				  </div>
 				  <div className="panel-body">
 				    <div className="list-group">
@@ -127,8 +134,6 @@ const ItemPanel = (props) => {
 	} else {
 		return null;
 	}
-	
-	
 }
 
 export default ItemPanel;

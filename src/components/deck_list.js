@@ -131,25 +131,24 @@ class DeckList extends Component {
 		
 		return (
 			<div className="row">
-				
 				<div className="col-sm-4 col-md-3 col-lg-2">
-					<ItemPanelDeckList decks={this.props.decks} type="deckList" selected={this.props.selectedID} onViewDeck={this.props.onViewDeck}  />
-					<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="clan" type2="stronghold" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
-					<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="province" type2="province" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
+					<ItemPanelDeckList onTogglePanel={this.props.onTogglePanel} decks={this.props.decks} type="deckList" selected={this.props.selectedID} onViewDeck={this.props.onViewDeck}  />
+					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="clan" type2="stronghold" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
+					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="province" type2="province" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
 				</div>
 				<div className="col-sm-8 col-md-6 col-lg-6">
 				<FetchNotification decks={this.props.decks} cards={this.props.cards} status={this.props.cards.status} />
 					<div className="row">
 						<div className="col-sm-6">
 							<ItemPanelHead decks={this.props.decks} head="dynasty" count={this.props.currentDynastyCount} />
-							<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="character" count={this.props.currentDynastyCount} />
-							<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="holding" count={this.props.currentDynastyCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="character" count={this.props.currentDynastyCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="holding" count={this.props.currentDynastyCount} />
 						</div>
 						<div className="col-sm-6">
 							<ItemPanelHead decks={this.props.decks} head="conflict" count={this.props.currentConflictCount} />
-							<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="event" count={this.props.currentConflictCount} />
-							<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="attachment" count={this.props.currentConflictCount} />
-							<ItemPanel onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="character" count={this.props.currentConflictCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="event" count={this.props.currentConflictCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="attachment" count={this.props.currentConflictCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="character" count={this.props.currentConflictCount} />
 						</div>
 					</div>
 				</div>

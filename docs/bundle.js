@@ -26347,26 +26347,29 @@ exports.default = function () {
 						_react2.default.createElement(
 							'strong',
 							null,
-							'FULL Permalink URL'
+							'Permalink URL'
 						),
 						' of your deck or ',
 						_react2.default.createElement(
 							'strong',
 							null,
-							'ANY Deck URL'
+							'ANY deck URL'
 						),
 						' from ',
 						_react2.default.createElement(
 							'strong',
 							null,
-							'fiveringsdb.com'
+							_react2.default.createElement(
+								'a',
+								{ href: 'https://fiveringsdb.com/', target: '_blank' },
+								'fiveringsdb.com'
+							)
 						),
 						'.'
 					),
 					list: action.payload.data
 				});
 			}
-
 	}
 
 	return state;

@@ -57,7 +57,7 @@ class ImportBar extends Component {
 				
 				<form onSubmit={this.onFormSubmit} className="import-form input-group" style={{}}>
 					<span className="input-group-btn">
-						<button type="button" className="btn btn-default"><span className="fa fa-4 fa-cog"></span></button>
+						<button type="button" onClick={this.props.onToggleSiteMode} className="btn btn-default"><span className="fa fa-4 fa-cog"></span></button>
 					</span>
 					<input 
 					className="form-control" 

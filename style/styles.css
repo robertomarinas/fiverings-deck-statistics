@@ -28,12 +28,13 @@ body {
 }
 .main-content {
 	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+	padding-top: 20px;
 }
 footer {
 	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 	padding: 20px;
 	text-align: center;
-	background-color: #f5f5f5
+	background-color: #eee;
 }
 .footer-small {
 	padding-top: 5px;
@@ -59,7 +60,7 @@ footer {
 }
 
 h1 {
-	color: #fff!important;
+	color: #fff;
 	margin-top: 0!important;
 	font-family: 'Raleway', sans-serif!important;
 }
@@ -71,10 +72,6 @@ h1 {
 #container {
 	padding: 30px 0;
 }
-.page-header {
-	padding: 20px 0!important;
-}
-
 .center {
 	text-align: center;
 }
@@ -118,11 +115,27 @@ h1 {
 .btn-calc-res {
 	border-radius: 4px!important;
 }
+/*Toggle Site Mode*/
+.mode-track h1 {
+	color: #000!important;
+}
+.mode-track .page-header {
+	background-color: #fff!important;
+}
+.mode-track .main-content {
+	background-color: #000;
+}
+
+.mode-track .panel-body {
+	background-color: #191919;
+}
 
 /*Imported Classes*/
 .page-header {
 	background-color: #000;
-	margin-top: 0!important;
+	border: 0;
+	margin: 0!important;
+	padding: 20px 0!important;
 }
 .panel-title {
 	text-transform: capitalize;

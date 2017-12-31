@@ -2,13 +2,11 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../style/styles.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="../style/styles.css">
     <style type="text/css">
 	    *,
 		*:before,
@@ -37,334 +35,332 @@
   </head>
   <body>
 
-	<div id="root">
-		<div class="page-header">
-			<div class="container page-header-content">
-				<div class="row">
-					<div class="col-md-5">
-						<h1>L5R: TCG Deck Statistics</h1>
-					</div>
-					<div class="col-md-7">
-						<form onSubmit="" class="import-form input-group">
-							<span class="input-group-addon" id="basic-addon1">https://fiveringsdb.com/strains/</span>
-							<input 
-							class="form-control" 
-							onChange="" 
-							placeholder="Enter permalink ID here.." 
-							value="" />
-							
-							<span class="input-group-btn">
-								<button class="btn btn-secondary">Fetch Deck</button>
-							</span>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	    <div class="container">
-	    	<div class="row">
-				<div class="col-sm-4 col-md-3">
-					<div class="item">
-			    		<div class="panel panel-default">
-						  <div class="panel-heading">
-						  	<h3 class="panel-title">Deck List:</h3>
-						  </div>
-						  <div class="panel-body">
-						    <div class="list-group">
-						    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
-						    	<button class="list-group-item active">For Honor and Glory Lion/Phoenix w/ Expansion</button>
-						    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
-						    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
-						    </div>
-						  </div>
-						</div>
-			    	</div>
-			    	<div class="item">
-						<div class="panel panel-default">
-						  <div class="panel-heading">
-						    <h3 class="panel-title">Clan: Lion</h3>
-						  </div>
-						  <div class="panel-body">
-						    <ul class="list-group">
-						    	<li class="list-group-item">Stronghold: Yojin No Shiro</li>
-						    	<li class="list-group-item">Role: Keeper of Fire</li>					
-						    	<li class="list-group-item">Splash: Unicorn</li>					
-						    </ul>
-						  </div>
-						</div>
-					</div>
-			    	<div class="item">
-						<div class="panel panel-default">
-						  <div class="panel-heading">
-						    <h3 class="panel-title">Provinces:(5)</h3>
-						  </div>
-						  <div class="panel-body">
-						    <ul class="list-group">
-						    	<li class="list-group-item">Fertile Fields</li>
-						    	<li class="list-group-item">Fertile Fields</li>
-						    	<li class="list-group-item">Fertile Fields</li>
-						    	<li class="list-group-item">Fertile Fields</li>
-						    	<li class="list-group-item">Fertile Fields</li>
-						    </ul>
-						  </div>
-						</div>
-					</div>
-				</div>
-	    		
-				<div class="col-sm-8 col-md-6">
+	<div id="root" class="mode-track">
+		<header>
+			<div id="page-header" class="page-header">
+				<div class="container page-header-content">
 					<div class="row">
-						<div class="col-sm-6">
-							<div class="panel panel-default">
-								  <div class="panel-heading">
-								  	<h2 class="panel-title">Dynasty</h2>
-								  </div>
-							</div>
-							<div class="item">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-								  	<h3 class="panel-title">Characters: (38)</h3>
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	
-								    </ul>
-								  </div>
-								</div>
-							</div>
-							
-							
-							<div class="item">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">Holdings: (3)</h3>
-								    
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    </ul>
-								  </div>
-								</div>
-							</div>
-							
+						<div class="col-md-5">
+							<h1>L5R: TCG Deck Statistics</h1>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-md-7">
+							<form onSubmit="" class="import-form input-group">
+								<span class="input-group-addon fa fa-cog"></span>
+								<input 
+								class="form-control" 
+								onChange="" 
+								placeholder="" 
+								value="" />
+								
+								<span class="input-group-btn">
+									<button class="btn btn-secondary">Fetch Deck</button>
+								</span>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div id="main-content" class="main-content">
+			<div class="container">
+		    	<div class="row">
+					<div class="col-sm-4 col-md-3">
+						<div class="item">
+				    		<div class="panel panel-primary">
+							  <div class="panel-heading">
+							  	<h3 class="panel-title">Deck List:</h3>
+							  </div>
+							  <div class="panel-body">
+							    <div class="list-group">
+							    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
+							    	<button class="list-group-item active">For Honor and Glory Lion/Phoenix w/ Expansion</button>
+							    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
+							    	<button class="list-group-item">Rampage!! Lion/Unicorn CORE</button>
+							    </div>
+							  </div>
+							</div>
+				    	</div>
+				    	<div class="item">
 							<div class="panel panel-default">
-								  <div class="panel-heading">
-								  	<h2 class="panel-title">Conflict</h2>
-								  </div>
+							  <div class="panel-heading">
+							    <h3 class="panel-title">Clan: Lion</h3>
+							  </div>
+							  <div class="panel-body">
+							    <ul class="list-group">
+							    	<li class="list-group-item">Stronghold: Yojin No Shiro</li>
+							    	<li class="list-group-item">Role: Keeper of Fire</li>					
+							    	<li class="list-group-item">Splash: Unicorn</li>					
+							    </ul>
+							  </div>
 							</div>
-							<div class="item">
+						</div>
+				    	<div class="item">
+							<div class="panel panel-default">
+							  <div class="panel-heading">
+							    <h3 class="panel-title">Provinces:(5)</h3>
+							  </div>
+							  <div class="panel-body">
+							    <ul class="list-group">
+							    	<li class="list-group-item">Fertile Fields</li>
+							    	<li class="list-group-item">Fertile Fields</li>
+							    	<li class="list-group-item">Fertile Fields</li>
+							    	<li class="list-group-item">Fertile Fields</li>
+							    	<li class="list-group-item">Fertile Fields</li>
+							    </ul>
+							  </div>
+							</div>
+						</div>
+					</div>
+		    		
+					<!-- <div class="col-sm-8 col-md-6">
+						<div class="row">
+							<div class="col-sm-6">
 								<div class="panel panel-default">
-								  <div class="panel-heading">
-								  	<h3 class="panel-title">Characters: (6)</h3>
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item"><label for="">Akodo Toturi</label><span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    	<li class="list-group-item">test<span class="badge">3</span></li>
-								    </ul>
-								  </div>
+									  <div class="panel-heading">
+									  	<h2 class="panel-title">Dynasty</h2>
+									  </div>
 								</div>
-							</div>
-							<div class="item">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">Attachments: (5)</h3>
-								    
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    </ul>
-								  </div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									  	<h3 class="panel-title">Characters: (38)</h3>
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item"><label for="">Akodo Toturi</label> <span style="font-style: italic;">(99%)</span><span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	
+									    </ul>
+									  </div>
+									</div>
 								</div>
-							</div>
-							<div class="item">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">Provinces: (5)</h3>
-								    
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    </ul>
-								  </div>
+								
+								
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title">Holdings: (3)</h3>
+									    
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    </ul>
+									  </div>
+									</div>
 								</div>
+								
 							</div>
-							<div class="item">
+							<div class="col-sm-6">
 								<div class="panel panel-default">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">Holdings: (3)</h3>
-								    
-								  </div>
-								  <div class="panel-body">
-								    <ul class="list-group">
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    	<li class="list-group-item">attachments</li>
-								    </ul>
-								  </div>
+									  <div class="panel-heading">
+									  	<h2 class="panel-title">Conflict</h2>
+									  </div>
 								</div>
-							</div>
-							<div class="item">
-								<div class="panel panel-default">
-								  <div class="panel-heading">
-								    <h3 class="panel-title">Events: (8)</h3>
-								  </div>
-								  <div class="panel-body">
-								   	<ul class="list-group">
-								   		<li class="list-group-item">Voice Of Honor<span class="badge">3</span></li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   		<li class="list-group-item">Events..</li>
-								   	</ul>
-								  </div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									  	<h3 class="panel-title">Characters: (6)</h3>
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item"><label for="">Akodo Toturi</label><span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    	<li class="list-group-item">test<span class="badge">3</span></li>
+									    </ul>
+									  </div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title">Attachments: (5)</h3>
+									    
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    </ul>
+									  </div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title">Provinces: (5)</h3>
+									    
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    </ul>
+									  </div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title">Holdings: (3)</h3>
+									    
+									  </div>
+									  <div class="panel-body">
+									    <ul class="list-group">
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    	<li class="list-group-item">attachments</li>
+									    </ul>
+									  </div>
+									</div>
+								</div>
+								<div class="item">
+									<div class="panel panel-default">
+									  <div class="panel-heading">
+									    <h3 class="panel-title">Events: (8)</h3>
+									  </div>
+									  <div class="panel-body">
+									   	<ul class="list-group">
+									   		<li class="list-group-item">Voice Of Honor<span class="badge">3</span></li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   		<li class="list-group-item">Events..</li>
+									   	</ul>
+									  </div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+									
+					<div class="col-sm-12 col-md-3">
+						<div class="item">
+							<div class="panel panel-default">
+							  <div class="panel-heading">
+							  	<h3 class="panel-title">Curve Chart (Fate cost)</h3>
+							  </div>
+							  <div class="panel-body">
+							    <img src="./img/dummy_chart.png" alt="" class="img-responsive">
+							    <table class="table table-responsive">
+							    	<thead>
+							    		<th>0</th>
+							    		<th>1</th>
+							    		<th>2</th>
+							    		<th>3</th>
+							    		<th>4</th>
+							    		<th>5+</th>
+							    	</thead>
+							    	<tbody>
+							    		<td>1</td>
+							    		<td>2</td>
+							    		<td>3</td>
+							    		<td>4</td>
+							    		<td>5</td>
+							    		<td>6</td>
+							    	</tbody>
+							    </table>
+							  </div>
+							</div>	    		
+				    	</div>
+				    	<div class="item">
+							<div class="panel panel-default">
+							  <div class="panel-heading">
+							  	<h3 class="panel-title">Probability Calculator:</h3>
+							  </div>
+							  <div class="panel-body">
+							    <form onSubmit="" class="prob-calc-form">
+									<div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1">Card ID:</span>
+									  <input type="text" class="form-control" placeholder="e.g. akodo toturi" value="" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1">Copies in Deck:</span>
+									  <input type="number" class="form-control" placeholder="3" value="1" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1"># of Draws:</span>
+									  <input type="number" class="form-control" placeholder="1" value="1" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1"># of Successful Draws:</span>
+									  <input type="number" class="form-control" placeholder="1" value="1" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group">
+									  <span class="input-group-addon" id="basic-addon1">Deck Count:</span>
+									  <input type="number" class="form-control" placeholder="40" value="" aria-describedby="basic-addon1">
+									</div>
+									<div class="input-group">
+									
+									  <span class="input-group-btn">
+									    <button class="btn btn-secondary">Calculate</button>
+									  </span>
+									  <span class="input-group-addon percent">7.5 %</span>
+									</div>
+								</form>
 								
-				<div class="col-sm-12 col-md-3">
-					<div class="item">
-						<div class="panel panel-default">
-						  <div class="panel-heading">
-						  	<h3 class="panel-title">Curve Chart (Fate cost)</h3>
-						  </div>
-						  <div class="panel-body">
-						    <img src="./img/dummy_chart.png" alt="" class="img-responsive">
-						    <table class="table table-responsive">
-						    	<thead>
-						    		<th>0</th>
-						    		<th>1</th>
-						    		<th>2</th>
-						    		<th>3</th>
-						    		<th>4</th>
-						    		<th>5+</th>
-						    	</thead>
-						    	<tbody>
-						    		<td>1</td>
-						    		<td>2</td>
-						    		<td>3</td>
-						    		<td>4</td>
-						    		<td>5</td>
-						    		<td>6</td>
-						    	</tbody>
-						    </table>
-						  </div>
-						</div>	    		
-			    	</div>
-			    	<div class="item">
-						<div class="panel panel-default">
-						  <div class="panel-heading">
-						  	<h3 class="panel-title">Probability Calculator:</h3>
-						  </div>
-						  <div class="panel-body">
-						    <form onSubmit="" class="prob-calc-form">
-								<div class="input-group">
-								  <span class="input-group-addon" id="basic-addon1">Card ID:</span>
-								  <input type="text" class="form-control" placeholder="e.g. akodo toturi" value="" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group">
-								  <span class="input-group-addon" id="basic-addon1">Copies in Deck:</span>
-								  <input type="number" class="form-control" placeholder="3" value="1" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group">
-								  <span class="input-group-addon" id="basic-addon1"># of Draws:</span>
-								  <input type="number" class="form-control" placeholder="1" value="1" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group">
-								  <span class="input-group-addon" id="basic-addon1"># of Successful Draws:</span>
-								  <input type="number" class="form-control" placeholder="1" value="1" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group">
-								  <span class="input-group-addon" id="basic-addon1">Deck Count:</span>
-								  <input type="number" class="form-control" placeholder="40" value="" aria-describedby="basic-addon1">
-								</div>
-								<div class="input-group">
-								
-								  <span class="input-group-btn">
-								    <button class="btn btn-secondary">Calculate</button>
-								  </span>
-								  <span class="input-group-addon percent">7.5 %</span>
-								</div>
-							</form>
-							
-						  </div>
-						</div>	    		
-			    	</div>
+							  </div>
+							</div>	    		
+				    	</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
+	    
 	</div>
 
 	<footer>
-		<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-			<input type="hidden" name="cmd" value="_s-xclick">
-			<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-			">
-			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-			<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-		</form>
+		
 	</footer>
 	
   </body>

@@ -11,7 +11,6 @@ import ModalContent from '../components/modal_content';
 import DeckList from '../components/deck_list';
 import DonateBtn from '../components/donate_btn';
 // Import External Files
-
 require('font-awesome/css/font-awesome.css');
 import '../../style/styles.css';
 
@@ -73,6 +72,7 @@ class App extends Component {
 				}
 			},
 			noCost: 0,
+			toggleMode: false,
 			ifFetchDeck: false,
 			ifFetchRuling: false,
 			ifShowRuling: false,
@@ -88,6 +88,8 @@ class App extends Component {
 		this.viewRulings = this.viewRulings.bind(this);
 		// Trigger Panels
 		this.togglePanel = this.togglePanel.bind(this);
+		// Trigger Mode
+		this.toggleSiteMode = this.toggleSiteMode.bind(this);
 		// Get ALL Data
 		this.onViewDeck = this.onViewDeck.bind(this);
 		this.onGetCost = this.onGetCost.bind(this);
@@ -138,7 +140,7 @@ class App extends Component {
 		this.setState({ ifFetchRuling: true });
 		this.setState({ ifShowRuling: true });
 	}
-
+	// Toggle Modal Image
 	viewModalImage(e) {
 		e.preventDefault();
 	}
@@ -153,6 +155,26 @@ class App extends Component {
 			element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: 0; overflow: hidden; padding: 0";
 			element.className = 'fa fa-toggle-off';
 		}
+	}
+	// Toggle Site Mode
+	toggleSiteMode(e) {
+		e.preventDefault();
+		const mode = this.state.toggleMode;
+		const pageHeader = document.getElementById('page-header');
+		const mainContainer = document.getElementById('main-content');
+		// console.log(pageHeader.getElementsByTagName('h1')[0]);
+		if(mode) {
+			pageHeader.style.cssText = "background-color: #000";
+			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #fff";
+			mainContainer.style.cssText = "background-color: #fff";
+			this.setState({ toggleMode: false });	
+		} else {
+			pageHeader.style.cssText = "background-color: #fff";
+			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #000";
+			mainContainer.style.cssText = "background-color: #000";
+			this.setState({ toggleMode: true });
+		}
+		
 	}
 
 	// Display deck statistics ASYNC
@@ -335,6 +357,7 @@ class App extends Component {
 	}
 
 	render() {
+		console.log(this.state.toggleMode);
 		return (
 			<div className="react-content">
 		        <Modal
@@ -344,27 +367,25 @@ class App extends Component {
 		          style={customStyles}
 		          contentLabel="Example Modal"
 		        >
-
 		          <span ref={subtitle => this.subtitle = subtitle}></span>
 		          <button className="btn btn-primary" onClick={this.closeModal}>close</button>
 		          
 		          <ModalContent ref={this.subtitle} cardId={this.state.selectedCard} cardsList={this.state.optimizedCardsList} cardRulings={this.state.newRuling} ifFetchRuling={this.state.ifFetchRuling} ifShowRuling={this.state.ifShowRuling} onViewRulings={this.viewRulings} />
 		          
 		        </Modal>
-		        <div className="main-content">
-					<header>
-			        	<div className="page-header">
-							<div className="container page-header-content">
-								<div className="row">
-									<div className="col-md-5"><h1>L5R: LCG Deck Statistics</h1></div>
-									<div className="col-md-7">
-										<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} />
-									</div>
+		        <header>
+		        	<div id="page-header" className="page-header">
+						<div className="container page-header-content">
+							<div className="row">
+								<div className="col-md-5"><h1>L5R: LCG Deck Statistics</h1></div>
+								<div className="col-md-7">
+									<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} onToggleSiteMode={this.toggleSiteMode} siteMode={this.state.siteMode} />
 								</div>
 							</div>
 						</div>
-			        </header>
-				
+					</div>
+		        </header>
+		        <div id="main-content" className="main-content">
 					<div className="container">
 						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
 					</div>

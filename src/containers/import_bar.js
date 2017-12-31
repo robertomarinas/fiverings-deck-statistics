@@ -54,8 +54,11 @@ class ImportBar extends Component {
 				<div style={{color: '#F00'}}>
 					{this.state.ifFetchDeck ? <span className="fa fa-spinner fa-spin"></span> : this.props.decks.status}
 				</div>
-
+				
 				<form onSubmit={this.onFormSubmit} className="import-form input-group" style={{}}>
+					<span className="input-group-btn">
+						<button type="button" className="btn btn-default"><span className="fa fa-4 fa-cog"></span></button>
+					</span>
 					<input 
 					className="form-control" 
 					onChange={this.onInputChange} 

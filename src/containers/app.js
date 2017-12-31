@@ -10,6 +10,10 @@ import CurveDiagram from '../components/curve_diagram';
 import ModalContent from '../components/modal_content';
 import DeckList from '../components/deck_list';
 import DonateBtn from '../components/donate_btn';
+// Import External Files
+
+require('font-awesome/css/font-awesome.css');
+import '../../style/styles.css';
 
 const customStyles = {
   overlay : {

@@ -4,8 +4,8 @@ font-family: 'fiveringsicons';
 src:url(../static/fonts/fiveringsdb.40010fe.eot);
 src:url(../static/fonts/fiveringsdb.40010fe.eot#iefix) format("embedded-opentype"),
     url(../static/fonts/fiveringsdb.03ae900.ttf) format("truetype"),
-    url(../static/fonts/fiveringsdb.a541c33.woff) format("woff"),
-    url(../static/img/fiveringsdb.c5a64c2.svg#fiveringsdb) format("svg");
+    url(../static/fonts/fiveringsdb.a541c33.woff) format("woff");
+    /*url(../static/img/fiveringsdb.c5a64c2.svg#fiveringsdb) format("svg");*/
 
 font-weight:400;
 font-style:normal
@@ -135,4 +135,3 @@ button.fa {
 .fa-toggle-on:before {
     color: #337ab7;
 }
-

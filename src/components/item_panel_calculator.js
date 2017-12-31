@@ -15,19 +15,19 @@ const ItemPanelCalculator = (props) => {
 				    <form onSubmit={props.onHandleSubmit} className="prob-calc-form">
 				      <ValidationAlertDiv type={props.ifEmptyFields} alertType="fail" />
 						<div className="input-group">
-						  <span className="input-group-addon" id="basic-addon1"># of Copies:</span>
-						  <input type="text" className="form-control" name="copies" onChange={props.onHandleChange} placeholder="3" value={props.copies} aria-describedby="basic-addon1" />
+						  <span className="input-group-addon" id="copies-addon"># of Copies:</span>
+						  <input type="text" className="form-control" name="copies" onChange={props.onHandleChange} placeholder="3" value={props.copies} aria-describedby="copies-addon" />
 						  
 						</div>
 						<ValidationAlertDiv type={props.ifCopies} alertType="fail" />
 						<div className="input-group">
-						  <span className="input-group-addon" id="basic-addon1"># of Draws:</span>
-						  <input type="text" className="form-control" name="numDraws" onChange={props.onHandleChange} placeholder="5" value={props.numDraws} aria-describedby="basic-addon1" />
+						  <span className="input-group-addon" id="numdraws-addon"># of Draws:</span>
+						  <input type="text" className="form-control" name="numDraws" onChange={props.onHandleChange} placeholder="5" value={props.numDraws} aria-describedby="numdraws-addon" />
 						</div>
 						<ValidationAlertDiv type={props.ifDraws} alertType="fail" />
 						<div className="input-group">
-						  <span className="input-group-addon" id="basic-addon1">Deck Size:</span>
-						  <input type="text" className="form-control" name="deckCount" onChange={props.onHandleChange} placeholder="40" value={props.deckCount} aria-describedby="basic-addon1" />
+						  <span className="input-group-addon" id="decksize-addon">Deck Size:</span>
+						  <input type="text" className="form-control" name="deckCount" onChange={props.onHandleChange} placeholder="40" value={props.deckCount} aria-describedby="decksize-addon" />
 						</div>
 						<ValidationAlertDiv type={props.ifDeckCount} alertType="fail" />
 						<div className="input-group">

@@ -159,22 +159,21 @@ class App extends Component {
 	// Toggle Site Mode
 	toggleSiteMode(e) {
 		e.preventDefault();
-		const mode = this.state.toggleMode;
-		const pageHeader = document.getElementById('page-header');
-		const mainContainer = document.getElementById('main-content');
-		// console.log(pageHeader.getElementsByTagName('h1')[0]);
-		if(mode) {
-			pageHeader.style.cssText = "background-color: #000";
-			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #fff";
-			mainContainer.style.cssText = "background-color: #fff";
-			this.setState({ toggleMode: false });	
-		} else {
-			pageHeader.style.cssText = "background-color: #fff";
-			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #000";
-			mainContainer.style.cssText = "background-color: #000";
-			this.setState({ toggleMode: true });
-		}
+		// const mode = this.state.toggleMode;
+		// const pageHeader = document.getElementById('page-header');
+		// const mainContainer = document.getElementById('main-content');
 		
+		// if(mode) {
+		// 	pageHeader.style.cssText = "background-color: #000";
+		// 	pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #fff";
+		// 	mainContainer.style.cssText = "background-color: #fff";
+		// 	this.setState({ toggleMode: false });	
+		// } else {
+		// 	pageHeader.style.cssText = "background-color: #fff";
+		// 	pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #000";
+		// 	mainContainer.style.cssText = "background-color: #000";
+		// 	this.setState({ toggleMode: true });
+		// }
 	}
 
 	// Display deck statistics ASYNC

@@ -26938,7 +26938,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 // Import External Files
-
 __webpack_require__(147);
 
 
@@ -27003,6 +27002,7 @@ var App = function (_Component) {
 				}
 			},
 			noCost: 0,
+			toggleMode: false,
 			ifFetchDeck: false,
 			ifFetchRuling: false,
 			ifShowRuling: false,
@@ -27018,6 +27018,8 @@ var App = function (_Component) {
 		_this.viewRulings = _this.viewRulings.bind(_this);
 		// Trigger Panels
 		_this.togglePanel = _this.togglePanel.bind(_this);
+		// Trigger Mode
+		_this.toggleSiteMode = _this.toggleSiteMode.bind(_this);
 		// Get ALL Data
 		_this.onViewDeck = _this.onViewDeck.bind(_this);
 		_this.onGetCost = _this.onGetCost.bind(_this);
@@ -27077,6 +27079,8 @@ var App = function (_Component) {
 			this.setState({ ifFetchRuling: true });
 			this.setState({ ifShowRuling: true });
 		}
+		// Toggle Modal Image
+
 	}, {
 		key: 'viewModalImage',
 		value: function viewModalImage(e) {
@@ -27094,6 +27098,28 @@ var App = function (_Component) {
 				element.parentNode.parentNode.parentNode.lastChild.style.cssText = "height: 0; overflow: hidden; padding: 0";
 				element.className = 'fa fa-toggle-off';
 			}
+		}
+		// Toggle Site Mode
+
+	}, {
+		key: 'toggleSiteMode',
+		value: function toggleSiteMode(e) {
+			e.preventDefault();
+			// const mode = this.state.toggleMode;
+			// const pageHeader = document.getElementById('page-header');
+			// const mainContainer = document.getElementById('main-content');
+
+			// if(mode) {
+			// 	pageHeader.style.cssText = "background-color: #000";
+			// 	pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #fff";
+			// 	mainContainer.style.cssText = "background-color: #fff";
+			// 	this.setState({ toggleMode: false });	
+			// } else {
+			// 	pageHeader.style.cssText = "background-color: #fff";
+			// 	pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #000";
+			// 	mainContainer.style.cssText = "background-color: #000";
+			// 	this.setState({ toggleMode: true });
+			// }
 		}
 
 		// Display deck statistics ASYNC
@@ -27277,6 +27303,7 @@ var App = function (_Component) {
 		value: function render() {
 			var _this2 = this;
 
+			console.log(this.state.toggleMode);
 			return _react2.default.createElement(
 				'div',
 				{ className: 'react-content' },
@@ -27300,38 +27327,38 @@ var App = function (_Component) {
 					_react2.default.createElement(_modal_content2.default, { ref: this.subtitle, cardId: this.state.selectedCard, cardsList: this.state.optimizedCardsList, cardRulings: this.state.newRuling, ifFetchRuling: this.state.ifFetchRuling, ifShowRuling: this.state.ifShowRuling, onViewRulings: this.viewRulings })
 				),
 				_react2.default.createElement(
-					'div',
-					{ className: 'main-content' },
+					'header',
+					null,
 					_react2.default.createElement(
-						'header',
-						null,
+						'div',
+						{ id: 'page-header', className: 'page-header' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'page-header' },
+							{ className: 'container page-header-content' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'container page-header-content' },
+								{ className: 'row' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'row' },
+									{ className: 'col-md-5' },
 									_react2.default.createElement(
-										'div',
-										{ className: 'col-md-5' },
-										_react2.default.createElement(
-											'h1',
-											null,
-											'L5R: LCG Deck Statistics'
-										)
-									),
-									_react2.default.createElement(
-										'div',
-										{ className: 'col-md-7' },
-										_react2.default.createElement(_import_bar2.default, { decks: this.props.decks, cards: this.props.cards, fetchDeck: this.props.fetchDeck })
+										'h1',
+										null,
+										'L5R: LCG Deck Statistics'
 									)
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col-md-7' },
+									_react2.default.createElement(_import_bar2.default, { decks: this.props.decks, cards: this.props.cards, fetchDeck: this.props.fetchDeck, onToggleSiteMode: this.toggleSiteMode, siteMode: this.state.siteMode })
 								)
 							)
 						)
-					),
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ id: 'main-content', className: 'main-content' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'container' },
@@ -28512,7 +28539,7 @@ var ImportBar = function (_Component) {
 						{ className: 'input-group-btn' },
 						_react2.default.createElement(
 							'button',
-							{ type: 'button', className: 'btn btn-default' },
+							{ type: 'button', onClick: this.props.onToggleSiteMode, className: 'btn btn-default' },
 							_react2.default.createElement('span', { className: 'fa fa-4 fa-cog' })
 						)
 					),
@@ -29906,7 +29933,7 @@ exports = module.exports = __webpack_require__(47)(undefined);
 
 
 // module
-exports.push([module.i, "/* Font Icons */\r\n@font-face{\r\nfont-family: 'fiveringsicons';\r\nsrc:url(" + __webpack_require__(48) + ");\r\nsrc:url(" + __webpack_require__(48) + "#iefix) format(\"embedded-opentype\"),\r\n    url(" + __webpack_require__(144) + ") format(\"truetype\"),\r\n    url(" + __webpack_require__(145) + ") format(\"woff\");\r\n    /*url(../static/img/fiveringsdb.c5a64c2.svg#fiveringsdb) format(\"svg\");*/\r\n\r\nfont-weight:400;\r\nfont-style:normal\r\n}\r\n.icon-clan-neutral:after{content:\"\\E90F\";font-family:'fiveringsicons'!important;color:#646464;padding-left: 10px;}.icon-clan-crab:after{content:\"\\E907\";font-family:'fiveringsicons'!important;color:#001c94;padding-left: 10px;}.icon-clan-crane:after{content:\"\\E908\";font-family:'fiveringsicons'!important;color:#0089de;padding-left: 10px;}.icon-clan-dragon:after{content:\"\\E909\";font-family:'fiveringsicons'!important;color:#00a472;padding-left: 10px;}.icon-clan-lion:after{content:\"\\E90A\";font-family:'fiveringsicons'!important;color:#cb9d00;padding-left: 10px;}.icon-clan-phoenix:after{content:\"\\E90B\";font-family:'fiveringsicons'!important;color:#c16400;padding-left: 10px;}.icon-clan-scorpion:after{content:\"\\E90C\";font-family:'fiveringsicons'!important;color:#a61600;padding-left: 10px;}.icon-clan-unicorn:after{content:\"\\E90D\";font-family:'fiveringsicons'!important;color:#780098;padding-left: 10px;}\r\nhtml,\r\nbody {\r\n\theight: 100%;\r\n}\r\nbody {\r\n\tfont-family: 'Roboto', sans-serif!important;\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\theight: 100vh; /* Avoid the IE 10-11 `min-height` bug. */\r\n}\r\n.react-content {\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\theight: 100vh; /* Avoid the IE 10-11 `min-height` bug. */\r\n}\r\n.main-content {\r\n\tflex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */\r\n}\r\nfooter {\r\n\tflex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */\r\n\tpadding: 20px;\r\n\ttext-align: center;\r\n\tbackground-color: #f5f5f5\r\n}\r\n.footer-small {\r\n\tpadding-top: 5px;\r\n}\r\n.footer-small \r\n> p {\r\n\tfont-size: 0.8em!important;\r\n\tmargin-bottom: 0!important;\r\n}\r\n.paypal-container {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\theight: 20px;\r\n\tpadding-top: 5px;\r\n\tfont-size: 0.8em;\r\n}\r\n.paypal-container form {\r\n\tdisplay: inline-block;\r\n\tvertical-align: text-top;\r\n}\r\n.paypal-btn {\r\n\tcursor: pointer;\r\n}\r\n\r\nh1 {\r\n\tcolor: #fff!important;\r\n\tmargin-top: 0!important;\r\n\tfont-family: 'Raleway', sans-serif!important;\r\n}\r\n\r\n.table {\r\n\tborder: 1px solid #eceeef;\r\n}\r\n\r\n#container {\r\n\tpadding: 30px 0;\r\n}\r\n.page-header {\r\n\tpadding: 20px 0!important;\r\n}\r\n\r\n.center {\r\n\ttext-align: center;\r\n}\r\n.deck-list li {\r\n\tfont-size: 0.8em;\r\n}\r\n\r\n.deck-list li label {\r\n\tmargin: 0;\r\n}\r\n\r\n.curve-container {\r\n\twidth: 300px;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.curve-diagram {\r\n\tmargin-top: 30px;\r\n}\r\n\r\n.curve-diagram .col-xs-2 {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tborder: 1px solid;\r\n\tbackground-color: #2F972F;\r\n}\r\n\r\n.prob-calc-form .input-group {\r\n\tmargin-bottom: 20px;\r\n}\r\n.prob-calc-form .input-group > .input-group-btn .btn {\r\n\twidth: 100%;\r\n}\r\n.prob-calc-form .input-group .input-group-addon.percent {\r\n\tbackground-color: transparent;\r\n\tborder-spacing: 5px;\r\n\tborder-style: dashed;\r\n\tfont-size: 1.3em;\r\n\tfont-weight: bold;\r\n}\r\n.btn-calc-res {\r\n\tborder-radius: 4px!important;\r\n}\r\n\r\n/*Imported Classes*/\r\n.page-header {\r\n\tbackground-color: #000;\r\n\tmargin-top: 0!important;\r\n}\r\n.panel-title {\r\n\ttext-transform: capitalize;\r\n}\r\nbutton.fa {\r\n\tbackground: none;\r\n\tborder: 0;\r\n\toutline: 0;\r\n}\r\n.fa-toggle-on:before {\r\n    color: #337ab7;\r\n}\r\n", ""]);
+exports.push([module.i, "/* Font Icons */\r\n@font-face{\r\nfont-family: 'fiveringsicons';\r\nsrc:url(" + __webpack_require__(48) + ");\r\nsrc:url(" + __webpack_require__(48) + "#iefix) format(\"embedded-opentype\"),\r\n    url(" + __webpack_require__(144) + ") format(\"truetype\"),\r\n    url(" + __webpack_require__(145) + ") format(\"woff\");\r\n    /*url(../static/img/fiveringsdb.c5a64c2.svg#fiveringsdb) format(\"svg\");*/\r\n\r\nfont-weight:400;\r\nfont-style:normal\r\n}\r\n.icon-clan-neutral:after{content:\"\\E90F\";font-family:'fiveringsicons'!important;color:#646464;padding-left: 10px;}.icon-clan-crab:after{content:\"\\E907\";font-family:'fiveringsicons'!important;color:#001c94;padding-left: 10px;}.icon-clan-crane:after{content:\"\\E908\";font-family:'fiveringsicons'!important;color:#0089de;padding-left: 10px;}.icon-clan-dragon:after{content:\"\\E909\";font-family:'fiveringsicons'!important;color:#00a472;padding-left: 10px;}.icon-clan-lion:after{content:\"\\E90A\";font-family:'fiveringsicons'!important;color:#cb9d00;padding-left: 10px;}.icon-clan-phoenix:after{content:\"\\E90B\";font-family:'fiveringsicons'!important;color:#c16400;padding-left: 10px;}.icon-clan-scorpion:after{content:\"\\E90C\";font-family:'fiveringsicons'!important;color:#a61600;padding-left: 10px;}.icon-clan-unicorn:after{content:\"\\E90D\";font-family:'fiveringsicons'!important;color:#780098;padding-left: 10px;}\r\nhtml,\r\nbody {\r\n\theight: 100%;\r\n}\r\nbody {\r\n\tfont-family: 'Roboto', sans-serif!important;\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\theight: 100vh; /* Avoid the IE 10-11 `min-height` bug. */\r\n}\r\n.react-content {\r\n\tdisplay: flex;\r\n\tflex-direction: column;\r\n\theight: 100vh; /* Avoid the IE 10-11 `min-height` bug. */\r\n}\r\n.main-content {\r\n\tflex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */\r\n\tpadding-top: 20px;\r\n}\r\nfooter {\r\n\tflex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */\r\n\tpadding: 20px;\r\n\ttext-align: center;\r\n\tbackground-color: #eee;\r\n}\r\n.footer-small {\r\n\tpadding-top: 5px;\r\n}\r\n.footer-small \r\n> p {\r\n\tfont-size: 0.8em!important;\r\n\tmargin-bottom: 0!important;\r\n}\r\n.paypal-container {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\theight: 20px;\r\n\tpadding-top: 5px;\r\n\tfont-size: 0.8em;\r\n}\r\n.paypal-container form {\r\n\tdisplay: inline-block;\r\n\tvertical-align: text-top;\r\n}\r\n.paypal-btn {\r\n\tcursor: pointer;\r\n}\r\n\r\nh1 {\r\n\tcolor: #fff;\r\n\tmargin-top: 0!important;\r\n\tfont-family: 'Raleway', sans-serif!important;\r\n}\r\n\r\n.table {\r\n\tborder: 1px solid #eceeef;\r\n}\r\n\r\n#container {\r\n\tpadding: 30px 0;\r\n}\r\n.center {\r\n\ttext-align: center;\r\n}\r\n.deck-list li {\r\n\tfont-size: 0.8em;\r\n}\r\n\r\n.deck-list li label {\r\n\tmargin: 0;\r\n}\r\n\r\n.curve-container {\r\n\twidth: 300px;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.curve-diagram {\r\n\tmargin-top: 30px;\r\n}\r\n\r\n.curve-diagram .col-xs-2 {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tborder: 1px solid;\r\n\tbackground-color: #2F972F;\r\n}\r\n\r\n.prob-calc-form .input-group {\r\n\tmargin-bottom: 20px;\r\n}\r\n.prob-calc-form .input-group > .input-group-btn .btn {\r\n\twidth: 100%;\r\n}\r\n.prob-calc-form .input-group .input-group-addon.percent {\r\n\tbackground-color: transparent;\r\n\tborder-spacing: 5px;\r\n\tborder-style: dashed;\r\n\tfont-size: 1.3em;\r\n\tfont-weight: bold;\r\n}\r\n.btn-calc-res {\r\n\tborder-radius: 4px!important;\r\n}\r\n/*Toggle Site Mode*/\r\n.mode-track h1 {\r\n\tcolor: #000!important;\r\n}\r\n.mode-track .page-header {\r\n\tbackground-color: #fff!important;\r\n}\r\n.mode-track .main-content {\r\n\tbackground-color: #000;\r\n}\r\n\r\n.mode-track .panel-body {\r\n\tbackground-color: #191919;\r\n}\r\n\r\n/*Imported Classes*/\r\n.page-header {\r\n\tbackground-color: #000;\r\n\tborder: 0;\r\n\tmargin: 0!important;\r\n\tpadding: 20px 0!important;\r\n}\r\n.panel-title {\r\n\ttext-transform: capitalize;\r\n}\r\nbutton.fa {\r\n\tbackground: none;\r\n\tborder: 0;\r\n\toutline: 0;\r\n}\r\n.fa-toggle-on:before {\r\n    color: #337ab7;\r\n}\r\n", ""]);
 
 // exports
 

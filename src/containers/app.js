@@ -160,21 +160,24 @@ class App extends Component {
 	toggleSiteMode(e) {
 		e.preventDefault();
 		const mode = this.state.toggleMode;
-		const pageHeader = document.getElementById('page-header');
-		const mainContainer = document.getElementById('main-content');
-		// console.log(pageHeader.getElementsByTagName('h1')[0]);
-		if(mode) {
-			pageHeader.style.cssText = "background-color: #000";
-			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #fff";
-			mainContainer.style.cssText = "background-color: #fff";
-			this.setState({ toggleMode: false });	
-		} else {
-			pageHeader.style.cssText = "background-color: #fff";
-			pageHeader.getElementsByTagName('h1')[0].style.cssText = "color: #000";
-			mainContainer.style.cssText = "background-color: #000";
-			this.setState({ toggleMode: true });
-		}
-		
+		const reactContent = document.querySelector('.react-content');
+		const alertContainer = document.querySelectorAll('div.alert');
+
+		if(this.state.selectedID) {
+			if(mode) {
+				alertContainer.forEach(alert => {
+					alert.classList.add('alert-info');
+				});
+				reactContent.classList.remove('mode-track');
+				this.setState({ toggleMode: false });	
+			} else {
+				alertContainer.forEach(alert => {
+					alert.classList.remove('alert-info');
+				});
+				reactContent.classList.add('mode-track');
+				this.setState({ toggleMode: true });
+			}
+		} 
 	}
 
 	// Display deck statistics ASYNC
@@ -195,7 +198,7 @@ class App extends Component {
 		});
 		
 		// set State to the selected ID
-		this.setState({ selectedID: key });
+		this.setState({ selectedID: key }, document.querySelector('.cog').removeAttribute('disabled'));
 
 		let fateCost =  [];
 		let newDeckArr = [];
@@ -357,7 +360,7 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.state.toggleMode);
+
 		return (
 			<div className="react-content">
 		        <Modal
@@ -377,9 +380,9 @@ class App extends Component {
 		        	<div id="page-header" className="page-header">
 						<div className="container page-header-content">
 							<div className="row">
-								<div className="col-md-5"><h1>L5R: LCG Deck Statistics</h1></div>
+								<div className="col-md-5"><h1>Fiverings Deck Statistics</h1></div>
 								<div className="col-md-7">
-									<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} onToggleSiteMode={this.toggleSiteMode} siteMode={this.state.siteMode} />
+									<ImportBar decks={this.props.decks} cards={this.props.cards} fetchDeck={this.props.fetchDeck} selectedID={this.state.selectedID} onToggleSiteMode={this.toggleSiteMode} siteMode={this.state.siteMode} />
 								</div>
 							</div>
 						</div>
@@ -387,7 +390,7 @@ class App extends Component {
 		        </header>
 		        <div id="main-content" className="main-content">
 					<div className="container">
-						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
+						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} toggleMode={this.state.toggleMode} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} />
 					</div>
 		        </div>
 		        

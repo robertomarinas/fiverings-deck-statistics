@@ -9,6 +9,9 @@ const ItemPanel = (props) => {
 	// Current Mode of Website (view/track)
 	const mode = props.mode;
 
+	// IF toggle site mode (view/track)
+	const deckSelected = mode ? props.trackDeck : props.deck;
+
 	let listGroupItem = [];
 	let panelType = null;
 	let flag = false;
@@ -72,7 +75,7 @@ const ItemPanel = (props) => {
 			let typePercent;
 			let classes;
 			let icon;
-			listGroupItem = props.deck.map((deck, index) => {
+			listGroupItem = deckSelected.map((deck, index) => {
 				if(props.cardList[deck.id].side == props.type && props.cardList[deck.id].type == props.type2) {
 					typeCount += deck.count;
 					typePercent = ((typeCount / props.count) * 100).toFixed(2);
@@ -114,9 +117,9 @@ const ItemPanel = (props) => {
 						return (
 							// add .toFixed(1) || _.round() !?
 							<div key={index}>
-								<button className="fa fa-minus"></button>
+								<button type="button" onClick={props.onCardDecrement} data-key={deck.id} className="fa fa-minus"></button>
 								{props.cardList[deck.id].name} <span>({deck.count})</span> <strong>{((deck.count / props.count)*100).toFixed(1)}%</strong>
-								<button className="fa fa-plus"></button>
+								<button type="button" onClick={props.onCardIncrement} data-key={deck.id} className="fa fa-plus"></button>
 							</div>
 						)
 					}

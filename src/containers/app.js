@@ -269,16 +269,6 @@ class App extends Component {
 		})
 
 		this.setState({trackSelectedDeck: deckObj});
-
-		// this.setState(prevState => ({
-		//     curve: {
-		//     	...prevState.curve,
-		//     	[side]: {
-		//     		...prevState.curve[side],
-		//     		zero: prevState.curve[side].zero + cardCount
-		//     	}
-		//     }
-		// }));
 	}
 
 	// Display deck statistics ASYNC

@@ -65,8 +65,10 @@ class DeckList extends Component {
 		// this.props.onGetCost(cardId, cardCount, cardsList)
 		// this.props.onGetDeckCount(id, count, cardsList)
 		// this.props.onGetAllData(cardsOfDeck, allOfCards, getCostFn, getDeckCountFn)
+		const cardId = e.target.dataset.key;
+		const deckSelected = this.props.trackSelectedDeck;
 
-
+		this.props.editTrackDeck(deckSelected, cardId,'increment');
 	}
 
 	cardDecrement(e) {
@@ -79,20 +81,9 @@ class DeckList extends Component {
 		// this.props.onGetDeckCount(id, count, cardsList)
 		// this.props.onGetAllData(cardsOfDeck, allOfCards, getCostFn, getDeckCountFn)
 		const deckSelected = this.props.trackSelectedDeck;
-		const allOfCards = this.props.optimizedCardsList;
-		const getCostFn = this.props.onGetCost;
-		const getDeckCountFn = this.props.onGetDeckCount;
 
-		this.props.editTrackDeck(deckSelected, cardId);
+		this.props.editTrackDeck(deckSelected, cardId,'decrement');
 	}
-
-	// editTrackDeck(deckSelected, cardId) {
-	// 	 deckSelected.map(card => {
-	// 	 	if(card.id === cardId) {
-
-	// 	 	}
-	// 	 })
-	// }
 
 	// FORM Handles
 

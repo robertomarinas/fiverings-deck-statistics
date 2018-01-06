@@ -245,12 +245,24 @@ class App extends Component {
 		this.setState({ trackSelectedDeck: trackDeck });
 	}
 
-	editTrackDeck(deckObj, cardId) {
+	editTrackDeck(deckObj, cardId, alter) {
+
+		// console.log(this.state.fixedDeck);
+		const fixedDeck = this.state.fixedDeck;
+
 		deckObj.map((card, index) => {
 			// console.log('matched');
+			// console.log(fixedDeck[card.id].count);
 			if(card.id === cardId) {
-
-				card.count--;
+				console.log(card.count);
+				console.log(fixedDeck[card.id].count);
+				if(alter === 'increment' && card.count < fixedDeck[card.id].count) {
+					// console.log('incrementing');
+					card.count++;	
+				} else if(alter === 'decrement' && card.count !== 0) {
+					card.count--;	
+				}
+				
 				// console.log()
 				// this.setState(prevState => ({
 				// 	trackSelectedDeck: [ 
@@ -261,10 +273,6 @@ class App extends Component {
 				// 		} 
 				// 	]
 				// }), console.log(this.state.trackSelectedDeck));
-				// let trackSelectedDeck = [];
-				// const item = Object.assign({}, this.state.trackSelectedDeck[index], {count: this.state.trackSelectedDeck[index] - 1});
-				// trackSelectedDeck[index] = item;
-				// this.setState({trackSelectedDeck: trackSelectedDeck[index]});
 			}
 		})
 
@@ -455,6 +463,7 @@ class App extends Component {
 	}
 
 	render() {
+		// console.log(this.state.trackSelectedDeck, this.state.trackCurve);
 		return (
 			<div className="react-content">
 		        <Modal
@@ -484,7 +493,7 @@ class App extends Component {
 		        </header>
 		        <div id="main-content" className="main-content">
 					<div className="container">
-						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} toggleMode={this.state.toggleMode} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} trackSelectedDeck={this.state.trackSelectedDeck} trackCurve={this.state.trackCurve} trackDynastyCount={this.state.trackDynastyCount} trackConflictCount={this.state.trackConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} editTrackDeck={this.editTrackDeck} />
+						<DeckList decks={this.props.decks} cards={this.props.cards} selectedID={this.state.selectedID} toggleMode={this.state.toggleMode} optimizedDeckList={this.state.optimizedDeckList} optimizedCardsList={this.state.optimizedCardsList} curve={this.state.curve} currentDynastyCount={this.state.currentDynastyCount} currentConflictCount={this.state.currentConflictCount} trackSelectedDeck={this.state.trackSelectedDeck} fixedSelectedDeck={this.state.fixedDeck} trackCurve={this.state.trackCurve} trackDynastyCount={this.state.trackDynastyCount} trackConflictCount={this.state.trackConflictCount} onViewItemModal={this.viewItemModal} onTogglePanel={this.togglePanel} onViewDeck={this.onViewDeck} onGetCost={this.onGetCost} onGetDeckCount={this.onGetDeckCount} onGetAllData={this.onGetAllData} editTrackDeck={this.editTrackDeck} />
 					</div>
 		        </div>
 		        

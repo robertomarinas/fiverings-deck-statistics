@@ -257,7 +257,7 @@ class App extends Component {
 				console.log(card.count);
 				console.log(fixedDeck[card.id].count);
 				if(alter === 'increment' && card.count < fixedDeck[card.id].count) {
-					console.log('incrementing');
+					// console.log('incrementing');
 					card.count++;	
 				} else if(alter === 'decrement' && card.count !== 0) {
 					card.count--;	

@@ -8,7 +8,7 @@ const ItemPanelCalculator = (props) => {
 			<div className="item">
 				<div className="panel panel-default">
 				  <div className="panel-heading">
-				  	<h3 className="panel-title">Probability Calculator:</h3>
+				  	<h2 className="panel-title">Probability Calculator:</h2>
 				  </div>
 				  <div className="panel-body">
 				  	 

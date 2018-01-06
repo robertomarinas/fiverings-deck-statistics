@@ -28,13 +28,71 @@ class DeckList extends Component {
 			ifDraws: '',
 			ifDeckCount: '',
 			ifEmptyFields: '',
-			fetchStatus: false
+			fetchStatus: false			
 		}
 
 		// For Probability Calculator
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		// For Track Mode
+		this.cardIncrement = this.cardIncrement.bind(this);
+		this.cardDecrement = this.cardDecrement.bind(this);
 	}
+
+	componentWillReceiveProps(nextProps) {
+		// console.log(nextProps);
+		// Currently Selected Deck Array
+		// nextProps.optimizedDeckList;
+		// Currently Selected Curve Object of Deck
+		// nextProps.curve;
+		// if(nextProps.toggleMode === true){
+		// 	this.setTrackCurve(nextProps.curve);
+		// 	// Make Copy of Selected Deck to Track
+		// 	this.setTrackDeck(nextProps.optimizedDeckList);
+		// }
+	}
+
+	// Track Mode Fns
+	// After Each Increment/Decrement, re-count deck size based on 
+	// trackSelectedDeck State(Copy of OptimizedDeckList), 
+	// re-count trackCurve State(Copy of curve state)
+	// DO NOT INCLUDE Strongholds, Provinces and Roles to Deck Count!
+	cardIncrement(e) {
+		e.preventDefault();
+
+		// console.log(e.target);
+		// Fns required to track deck
+		// this.props.onGetCost(cardId, cardCount, cardsList)
+		// this.props.onGetDeckCount(id, count, cardsList)
+		// this.props.onGetAllData(cardsOfDeck, allOfCards, getCostFn, getDeckCountFn)
+
+
+	}
+
+	cardDecrement(e) {
+		e.preventDefault();
+
+		const cardId = e.target.dataset.key;
+
+		// Fns required to track deck
+		// this.props.onGetCost(cardId, cardCount, cardsList)
+		// this.props.onGetDeckCount(id, count, cardsList)
+		// this.props.onGetAllData(cardsOfDeck, allOfCards, getCostFn, getDeckCountFn)
+		const deckSelected = this.props.trackSelectedDeck;
+		const allOfCards = this.props.optimizedCardsList;
+		const getCostFn = this.props.onGetCost;
+		const getDeckCountFn = this.props.onGetDeckCount;
+
+		this.props.editTrackDeck(deckSelected, cardId);
+	}
+
+	// editTrackDeck(deckSelected, cardId) {
+	// 	 deckSelected.map(card => {
+	// 	 	if(card.id === cardId) {
+
+	// 	 	}
+	// 	 })
+	// }
 
 	// FORM Handles
 
@@ -128,31 +186,31 @@ class DeckList extends Component {
 	}
 	
 	render() {
-		
+		// console.log(this.state.trackSelectedDeck);
 		return (
 			<div className="row">
-				<div className="col-sm-4 col-md-3 col-lg-2">
+				<div className="col-sm-4 col-md-3 col-lg-2 first-col">
 					<ItemPanelDeckList onTogglePanel={this.props.onTogglePanel} decks={this.props.decks} type="deckList" selected={this.props.selectedID} onViewDeck={this.props.onViewDeck}  />
-					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="clan" type2="stronghold" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
-					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} type="province" type2="province" cardList={this.props.optimizedCardsList} selected={this.props.selectedID}  />
+					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} type="clan" type2="stronghold" cardList={this.props.optimizedCardsList} selected={this.props.selectedID} mode={this.props.toggleMode} />
+					<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} type="province" type2="province" cardList={this.props.optimizedCardsList} selected={this.props.selectedID} mode={this.props.toggleMode} />
 				</div>
-				<div className="col-sm-8 col-md-6 col-lg-6">
-				<FetchNotification decks={this.props.decks} cards={this.props.cards} status={this.props.cards.status} />
+				<div className="col-sm-8 col-md-6 col-lg-7 second-and-third-cols">
+					<FetchNotification decks={this.props.decks} cards={this.props.cards} status={this.props.cards.status} />
 					<div className="row">
 						<div className="col-sm-6">
 							<ItemPanelHead decks={this.props.decks} head="dynasty" count={this.props.currentDynastyCount} />
-							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="character" count={this.props.currentDynastyCount} />
-							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="holding" count={this.props.currentDynastyCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="character" count={this.props.currentDynastyCount} mode={this.props.toggleMode} onCardIncrement={this.cardIncrement} onCardDecrement={this.cardDecrement} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="dynasty" type2="holding" count={this.props.currentDynastyCount} mode={this.props.toggleMode} onCardIncrement={this.cardIncrement} onCardDecrement={this.cardDecrement} />
 						</div>
 						<div className="col-sm-6">
 							<ItemPanelHead decks={this.props.decks} head="conflict" count={this.props.currentConflictCount} />
-							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="event" count={this.props.currentConflictCount} />
-							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="attachment" count={this.props.currentConflictCount} />
-							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="character" count={this.props.currentConflictCount} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="event" count={this.props.currentConflictCount} mode={this.props.toggleMode} onCardIncrement={this.cardIncrement} onCardDecrement={this.cardDecrement} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="attachment" count={this.props.currentConflictCount} mode={this.props.toggleMode} onCardIncrement={this.cardIncrement} onCardDecrement={this.cardDecrement} />
+							<ItemPanel onTogglePanel={this.props.onTogglePanel} onViewItemModal={this.props.onViewItemModal} decks={this.props.decks} deck={this.props.optimizedDeckList} trackDeck={this.props.trackSelectedDeck} selected={this.props.selectedID} cardList={this.props.optimizedCardsList} type="conflict" type2="character" count={this.props.currentConflictCount} mode={this.props.toggleMode} onCardIncrement={this.cardIncrement} onCardDecrement={this.cardDecrement} />
 						</div>
 					</div>
 				</div>
-				<div className="col-sm-12 col-md-3 col-lg-4">
+				<div className="col-sm-12 col-md-3 col-lg-3 fourth-col">
 					<div className="row">
 						<ItemPanelCurve curve={this.props.curve.dynasty} side="dynasty" id={this.props.selectedID} />
 						<ItemPanelCurve curve={this.props.curve.conflict} side="conflict" id={this.props.selectedID} />

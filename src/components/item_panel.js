@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 const ItemPanel = (props) => {
 
 	if(props.deck.length == 0) {
 		return null;
 	}
+	// Current Mode of Website (view/track)
+	const mode = props.mode;
+
+	// IF toggle site mode (view/track)
+	const deckSelected = mode ? props.trackDeck : props.deck;
 
 	let listGroupItem = [];
 	let panelType = null;
@@ -36,7 +42,7 @@ const ItemPanel = (props) => {
 							<button className="list-group-item" disabled>{deckObj.primary_clan}</button>
 							<button className="list-group-item" disabled>{deckObj.format}</button>
 						</div>
-					)	
+					)
 				}
 			});
 
@@ -69,7 +75,7 @@ const ItemPanel = (props) => {
 			let typePercent;
 			let classes;
 			let icon;
-			listGroupItem = props.deck.map((deck, index) => {
+			listGroupItem = deckSelected.map((deck, index) => {
 				if(props.cardList[deck.id].side == props.type && props.cardList[deck.id].type == props.type2) {
 					typeCount += deck.count;
 					typePercent = ((typeCount / props.count) * 100).toFixed(2);
@@ -105,7 +111,19 @@ const ItemPanel = (props) => {
 					}
 					classes = `${icon} list-group-item`;
 
-					return <button id={deck.id} key={index} data-key={deck.id} onClick={props.onViewItemModal} className={classes}>{props.cardList[deck.id].name} ({deck.count})</button>
+					if(!mode) {
+						return <button id={deck.id} key={index} data-key={deck.id} onClick={props.onViewItemModal} className={classes}>{props.cardList[deck.id].name} ({deck.count})</button>	
+					} else {
+						return (
+							// add .toFixed(1) || _.round() !?
+							<div key={index}>
+								<button type="button" onClick={props.onCardDecrement} data-key={deck.id} className="fa fa-minus"></button>
+								{props.cardList[deck.id].name} <span>({deck.count})</span> <strong>{((deck.count / props.count)*100).toFixed(1)}%</strong>
+								<button type="button" onClick={props.onCardIncrement} data-key={deck.id} className="fa fa-plus"></button>
+							</div>
+						)
+					}
+					
 				} 
 			});
 
@@ -117,20 +135,24 @@ const ItemPanel = (props) => {
 	}
 	
 	if(!flag) {
-		return(
-			<div className="item">
-	    		<div className="panel panel-default">
-				  <div className="panel-heading">
-				  	<h3 className="panel-title">{panelType} <button onClick={props.onTogglePanel} id={idPanel} className="fa fa-toggle-on" aria-hidden="true"></button></h3>
-				  </div>
-				  <div className="panel-body">
-				    <div className="list-group">
-				    	{listGroupItem}
-				    </div>
-				  </div>
-				</div>
-	    	</div>
-		)
+		if((mode && props.type === 'clan') || (mode && props.type === 'province')) {
+			return null;
+		} else {
+			return(
+				<div className="item">
+		    		<div className="panel panel-default">
+					  <div className="panel-heading">
+					  	<h2 className="panel-title">{panelType} <button onClick={props.onTogglePanel} id={idPanel} className="fa fa-toggle-on" aria-hidden="true"></button></h2>
+					  </div>
+					  <div className="panel-body">
+					    <div className="list-group">
+					    	{listGroupItem}
+					    </div>
+					  </div>
+					</div>
+		    	</div>
+			)
+		}
 	} else {
 		return null;
 	}

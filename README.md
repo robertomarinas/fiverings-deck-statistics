@@ -1,5 +1,5 @@
-# l5rdeckstat
-*deck statistics for l5r tcg*
+# Fiverings Deck Statistics
+*Deck statistics for l5R TCG*
 
 ## How to use?
 * Go to http://robertomarinas.github.io/fiverings-deck-statistics
